@@ -112,6 +112,51 @@ h1{
 .about-text p{color:#c3cee0;font-size:1.06rem;margin-bottom:18px}
 .about-text strong{color:var(--text)}
 
+/* marathon photo */
+.marathon-wrap {
+  margin-top: 24px;
+  border-radius: 12px;
+  padding: 4px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--line);
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  max-width: 340px;
+  transition: .35s;
+}
+.marathon-wrap:hover {
+  border-color: rgba(0, 229, 255, 0.4);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+}
+.marathon-wrap img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  filter: grayscale(30%) contrast(1.1);
+  transition: .4s ease;
+}
+.marathon-wrap:hover img {
+  filter: grayscale(0%) contrast(1);
+  transform: scale(1.02);
+}
+.marathon-wrap .badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(10, 15, 26, 0.85);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--line);
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  padding: 5px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
 /* picture and card container */
 .about-media {
   display: flex;
@@ -299,6 +344,12 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
         <p>Min styrka är att <strong>läsa och förstå komplexa kretsdiagram</strong>. Jag ser hur signaler, spänningar och reglerloopar hänger ihop i ett helt system och inte bara på komponentnivå. Den förmågan vill jag ta med mig in i nästa generations elektronik, där AI inte bara körs i molnet utan sitter inbyggd i själva hårdvaran.</p>
         <p>Jag trivs som bäst när jag får bygga något som verkligen fungerar: en robotarm som reglerar sitt eget moment, eller en bensinbil som får ett nytt eldrivet hjärta. Teori är kul, men det är när något rör sig för första gången som det blir riktigt roligt.</p>
         <p>Utomhus laddar jag batterierna genom <strong>löpning</strong>, <strong>calisthenics</strong> och <strong>beachvolleyboll</strong>. De ger mig uthållighet, disciplin och lagkänsla, och dem tar jag med mig in i varje projekt.</p>
+        
+        <div class="marathon-wrap">
+          <img src="4540.jpg" alt="Silas Ekman springer Uppsala Maraton">
+          <div class="badge">📍 UPPSALA MARATON</div>
+        </div>
+
       </div>
       <div class="about-media">
         <div class="profile-frame reveal">
