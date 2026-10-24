@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Silas Ekman — Hårdvara möter AI</title>
+<meta name="description" content="Portfolio för Silas Ekman: Detail Design Engineer och masterstudent i Embedded Systems i gränslandet mellan elektronik och artificiell intelligens.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05070d;
+  --bg-2:#0a0f1a;
+  --panel:rgba(14,22,38,.62);
+  --line:rgba(120,200,255,.14);
+  --text:#e6edf7;
+  --muted:#8b9bb4;
+  --cyan:#00e5ff;
+  --violet:#8b5cf6;
+  --lime:#7cff6b;
+  --grad:linear-gradient(120deg,var(--cyan),var(--violet));
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --sans:'Space Grotesk',system-ui,-apple-system,Segoe UI,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+body::before{ /* grid */
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background-image:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 75%);
+  opacity:.55;
+}
+#bg{position:fixed;inset:0;z-index:-1;pointer-events:none}
+::selection{background:var(--cyan);color:#001017}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+section{padding:110px 0;position:relative}
+
+/* progress bar */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--grad);z-index:100;box-shadow:0 0 12px var(--cyan)}
+
+/* nav */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(5,7,13,.6);border-bottom:1px solid var(--line);
+}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--mono);font-weight:700;letter-spacing:.04em}
+.logo span{color:var(--cyan)}
+.links{display:flex;gap:30px;list-style:none}
+.links a{font-family:var(--mono);font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;transition:.25s;position:relative}
+.links a:hover,.links a.active{color:var(--cyan)}
+.links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--cyan);transition:.3s;box-shadow:0 0 8px var(--cyan)}
+.links a:hover::after,.links a.active::after{width:100%}
+.burger{display:none;background:none;border:1px solid var(--line);color:var(--text);width:42px;height:42px;border-radius:8px;cursor:pointer;font-size:1.1rem}
+
+/* hero */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:110px}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:50px;align-items:center}
+.tag{
+  display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.78rem;
+  color:var(--cyan);border:1px solid rgba(0,229,255,.3);padding:7px 14px;border-radius:99px;
+  background:rgba(0,229,255,.06);letter-spacing:.08em;
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:pulse 1.8s infinite}
+@keyframes pulse{50%{opacity:.3;transform:scale(.8)}}
+h1{
+  font-size:clamp(2.5rem,6.2vw,4.9rem);line-height:1.04;font-weight:700;letter-spacing:-.03em;margin:26px 0 22px;
+}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{color:var(--muted);font-size:1.15rem;max-width:560px}
+.typing{font-family:var(--mono);color:var(--cyan);margin-top:22px;min-height:1.6em;font-size:1rem}
+.typing::after{content:"▍";animation:blink 1s steps(2) infinite;margin-left:2px}
+@keyframes blink{50%{opacity:0}}
+.cta{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap}
+.btn{
+  font-family:var(--mono);font-size:.85rem;padding:14px 26px;border-radius:10px;letter-spacing:.06em;
+  border:1px solid var(--cyan);color:var(--cyan);transition:.3s;position:relative;overflow:hidden;
+}
+.btn.primary{background:var(--grad);border-color:transparent;color:#021018;font-weight:700}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px -8px var(--cyan)}
+
+/* chip visual */
+.chip-wrap{display:grid;place-items:center}
+.chip{width:min(340px,80vw);aspect-ratio:1;position:relative;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-14px)}}
+.chip svg{width:100%;height:100%;overflow:visible}
+.trace{stroke-dasharray:6 8;animation:flow 2.5s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-56}}
+.scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.2em;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-hint i{width:1px;height:34px;background:linear-gradient(var(--cyan),transparent);animation:drop 1.8s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* section header */
+.sec-head{margin-bottom:56px}
+.sec-head .idx{font-family:var(--mono);color:var(--cyan);font-size:.85rem;letter-spacing:.15em}
+.sec-head h2{font-size:clamp(2rem,4.2vw,3rem);letter-spacing:-.02em;margin-top:8px;line-height:1.15}
+.sec-head h2::after{content:"";display:block;width:64px;height:3px;background:var(--grad);margin-top:18px;border-radius:3px;box-shadow:0 0 14px var(--cyan)}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1.2fr 1.1fr;gap:44px;align-items:start}
+.about-text p{color:#c3cee0;font-size:1.06rem;margin-bottom:18px}
+.about-text strong{color:var(--text)}
+
+/* picture and card container */
+.about-media {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.profile-frame {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: 5px;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.15);
+  overflow: hidden;
+  transition: .35s;
+}
+.profile-frame:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 45px rgba(0, 229, 255, 0.3);
+}
+.profile-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);position:relative;transition:.35s;
+}
+.card:hover{border-color:rgba(0,229,255,.45);box-shadow:0 0 40px -12px rgba(0,229,255,.35);transform:translateY(-4px)}
+.facts{display:grid;gap:18px}
+.fact .k{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+.fact .v{font-weight:500;margin-top:2px}
+.hobbies{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.pill{font-family:var(--mono);font-size:.74rem;padding:6px 12px;border-radius:99px;border:1px solid var(--line);color:var(--muted);transition:.25s}
+.pill:hover{color:var(--cyan);border-color:var(--cyan)}
+
+/* timeline */
+.timeline{position:relative;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--cyan),var(--violet),transparent)}
+.t-item{position:relative;margin-bottom:28px}
+.t-item::before{
+  content:"";position:absolute;left:-34px;top:26px;width:16px;height:16px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--cyan);box-shadow:0 0 14px var(--cyan);
+}
+.t-meta{font-family:var(--mono);font-size:.75rem;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase}
+.t-item h3{font-size:1.35rem;margin:6px 0 2px}
+.t-item .org{color:var(--muted);margin-bottom:12px;font-size:.95rem}
+.t-item p{color:#c3cee0}
+.stack{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.stack span{font-family:var(--mono);font-size:.72rem;padding:4px 10px;border-radius:6px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35);color:#c4b2ff}
+
+.sub-title{font-family:var(--mono);color:var(--muted);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;margin:70px 0 26px;display:flex;align-items:center;gap:14px}
+.sub-title::after{content:"";flex:1;height:1px;background:var(--line)}
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.proj{display:flex;flex-direction:column}
+.proj .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.3);margin-bottom:18px;color:var(--cyan)}
+.proj .ico svg{width:24px;height:24px}
+.proj h3{font-size:1.18rem;margin-bottom:8px}
+.proj p{color:#b3c0d6;font-size:.96rem;flex:1}
+
+/* skills */
+.skills-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px}
+.skills-grid h3{font-family:var(--mono);font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:22px}
+.bar{margin-bottom:20px}
+.bar .row{display:flex;justify-content:space-between;font-size:.92rem;margin-bottom:8px}
+.bar .row em{font-style:normal;font-family:var(--mono);color:var(--muted);font-size:.75rem}
+.track{height:6px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden}
+.fill{height:100%;width:0;border-radius:6px;background:var(--grad);box-shadow:0 0 12px rgba(0,229,255,.6);transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.soft{display:grid;gap:14px}
+.soft-item{display:flex;gap:14px;align-items:flex-start;padding:14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.02);transition:.3s}
+.soft-item:hover{border-color:var(--violet);transform:translateX(4px)}
+.soft-item b{display:block;font-weight:600}
+.soft-item small{color:var(--muted);font-size:.86rem}
+.soft-item .n{font-family:var(--mono);color:var(--violet);font-weight:700}
+
+/* contact */
+#contact{text-align:center}
+#contact h2{font-size:clamp(2rem,5vw,3.6rem);letter-spacing:-.02em;line-height:1.1;margin-bottom:18px}
+#contact p{color:var(--muted);max-width:520px;margin:0 auto 34px}
+.socials{display:flex;gap:14px;justify-content:center;margin-top:34px;flex-wrap:wrap}
+footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(34px);filter:blur(6px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1),filter .9s ease}
+.reveal.in{opacity:1;transform:none;filter:none}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+
+@media (max-width:900px){
+  .hero-grid,.about-grid,.skills-grid{grid-template-columns:1fr}
+  .projects{grid-template-columns:1fr}
+  .chip-wrap{order:-1}
+  .chip{width:min(220px,60vw)}
+  .links{
+    position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:rgba(5,7,13,.96);
+    border-bottom:1px solid var(--line);max-height:0;overflow:hidden;transition:max-height .4s;
+  }
+  .links.open{max-height:320px}
+  .links li{padding:16px 20px;border-top:1px solid var(--line)}
+  .burger{display:block}
+  section{padding:80px 0}
+  .scroll-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none;filter:none}
+  .fill{transition:none!important}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<canvas id="bg"></canvas>
+
+<nav>
+  <div class="wrap">
+    <a href="#hero" class="logo">&lt;<span>SE</span>/&gt;</a>
+    <button class="burger" aria-label="Meny" id="burger">☰</button>
+    <ul class="links" id="links">
+      <li><a href="#about">Om mig</a></li>
+      <li><a href="#experience">Erfarenhet</a></li>
+      <li><a href="#skills">Färdigheter</a></li>
+      <li><a href="#contact">Kontakt</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag reveal"><i class="dot"></i> SYSTEM ONLINE — Silas Ekman</span>
+      <h1 class="reveal d1">Där <span class="grad">hårdvara</span> möter <span class="grad">intelligens</span>.</h1>
+      <p class="hero-sub reveal d2">Jag är civilingenjörsstudent i elektroteknik och designar elektronik som tänker. Från kretskort och regulatorer till framtidens AI-integrerade inbyggda system.</p>
+      <div class="typing reveal d2" id="typing"></div>
+      <div class="cta reveal d3">
+        <a href="#experience" class="btn primary">SE MINA PROJEKT →</a>
+        <a href="#contact" class="btn">KONTAKTA MIG</a>
+      </div>
+    </div>
+    <div class="chip-wrap reveal d2">
+      <div class="chip">
+        <svg viewBox="0 0 300 300" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
+            <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <g stroke="url(#g)" stroke-width="1.6" filter="url(#glow)">
+            <rect x="85" y="85" width="130" height="130" rx="14" fill="rgba(0,229,255,.05)"/>
+            <rect x="112" y="112" width="76" height="76" rx="8"/>
+          </g>
+          <g stroke="url(#g)" stroke-width="1.5" class="trace" filter="url(#glow)">
+            <path d="M100 85V30H40"/><path d="M130 85V10"/><path d="M170 85V40H230"/><path d="M200 85V20H270"/>
+            <path d="M100 215v55H50"/><path d="M140 215v75"/><path d="M175 215v50h60"/><path d="M200 215v70"/>
+            <path d="M85 110H30V70"/><path d="M85 150H5"/><path d="M85 190H40v40"/>
+            <path d="M215 110h55V60"/><path d="M215 150h80"/><path d="M215 190h45v45"/>
+          </g>
+          <g fill="#00e5ff" filter="url(#glow)">
+            <circle cx="40" cy="30" r="3.5"/><circle cx="130" cy="10" r="3.5"/><circle cx="230" cy="40" r="3.5"/><circle cx="270" cy="20" r="3.5"/>
+            <circle cx="50" cy="270" r="3.5"/><circle cx="140" cy="290" r="3.5"/><circle cx="235" cy="265" r="3.5"/><circle cx="200" cy="285" r="3.5"/>
+            <circle cx="30" cy="70" r="3.5"/><circle cx="5" cy="150" r="3.5"/><circle cx="40" cy="230" r="3.5"/>
+            <circle cx="270" cy="60" r="3.5"/><circle cx="295" cy="150" r="3.5"/><circle cx="260" cy="235" r="3.5"/>
+          </g>
+          <text x="150" y="157" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="url(#g)">AI</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLLA<i></i></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="idx">// 01</div><h2>Om mig</h2></div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Hej, jag heter <strong>Silas</strong>. Jag arbetar som Detail Design Engineer på Vattenfall i Forsmark, där jag varje dag möter kretsdesign och ventilationssystem i en miljö där precision och säkerhet är allt. Parallellt läser jag masterprogrammet i <strong>Embedded Systems</strong> vid Uppsala universitet.</p>
+        <p>Min styrka är att <strong>läsa och förstå komplexa kretsdiagram</strong>. Jag ser hur signaler, spänningar och reglerloopar hänger ihop i ett helt system och inte bara på komponentnivå. Den förmågan vill jag ta med mig in i nästa generations elektronik, där AI inte bara körs i molnet utan sitter inbyggd i själva hårdvaran.</p>
+        <p>Jag trivs som bäst när jag får bygga något som verkligen fungerar: en robotarm som reglerar sitt eget moment, eller en bensinbil som får ett nytt eldrivet hjärta. Teori är kul, men det är när något rör sig för första gången som det blir riktigt roligt.</p>
+        <p>Utomhus laddar jag batterierna genom <strong>löpning</strong>, <strong>calisthenics</strong> och <strong>beachvolleyboll</strong>. De ger mig uthållighet, disciplin och lagkänsla, och dem tar jag med mig in i varje projekt.</p>
+      </div>
+      <div class="about-media">
+        <div class="profile-frame reveal">
+          <img src="silas_ekman.jpg" alt="Silas Ekman" class="profile-img">
+        </div>
+        <div class="card facts reveal d2">
+          <div class="fact"><div class="k">Roll</div><div class="v">Detail Design Engineer @ Vattenfall</div></div>
+          <div class="fact"><div class="k">Utbildning</div><div class="v">Civilingenjör Elektroteknik, MSc Embedded Systems — Uppsala universitet</div></div>
+          <div class="fact"><div class="k">Fokus</div><div class="v">Inbyggda system · Reglerteknik · AI på kanten</div></div>
+          <div class="fact"><div class="k">På fritiden</div>
+            <div class="hobbies"><span class="pill">🏃 Löpning</span><span class="pill">💪 Calisthenics</span><span class="pill">🏐 Beachvolleyboll</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="idx">// 02</div><h2>Erfarenhet &amp; projekt</h2></div>
+
+    <div class="timeline">
+      <div class="t-item card reveal">
+        <div class="t-meta">Nuvarande</div>
+        <h3>Detail Design Engineer</h3>
+        <div class="org">Vattenfall · Forsmark</div>
+        <p>Detaljprojektering inom kretsdesign och ventilationssystem i en av Sveriges mest säkerhetskritiska industrimiljöer. Jag omvandlar krav och scheman till underlag som går att bygga, drifta och underhålla.</p>
+        <div class="stack"><span>Kretsdesign</span><span>Ventilation</span><span>Dokumentation</span><span>Säkerhetskultur</span></div>
+      </div>
+
+      <div class="t-item card reveal d1">
+        <div class="t-meta">Tidigare</div>
+        <h3>Ahlsell</h3>
+        <div class="org">Elteknisk grossist</div>
+        <p>Erfarenhet från Ahlsell som gav mig en bred förståelse för elektronik- och installationskomponenter och för vad kunder faktiskt behöver ute i verkligheten.</p>
+        <div class="stack"><span>Produktkunskap</span><span>Kundkontakt</span><span>Teknisk rådgivning</span></div>
+      </div>
+
+      <div class="t-item card reveal d2">
+        <div class="t-meta">Utbildning</div>
+        <h3>Civilingenjör i Elektroteknik · Master i Embedded Systems</h3>
+        <div class="org">Uppsala universitet</div>
+        <p>Fördjupning i inbyggda system, reglerteknik och design av hård- och mjukvara som samarbetar.</p>
+      </div>
+    </div>
+
+    <div class="sub-title reveal">Tekniska projekt</div>
+    <div class="projects">
+      <article class="card proj reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2"/><circle cx="12" cy="9" r="2"/><circle cx="19" cy="4" r="2"/><path d="M6.2 17.4 10.8 10.6M13.8 8.2 17.2 5.2"/></svg></div>
+        <h3>Robotarm med momentbaserad PID</h3>
+        <p>Mitt kandidatexamensarbete. Jag utvecklade en robotarm styrd av en momentbaserad PID-regulator, från modell och reglerdesign till fungerande hårdvara.</p>
+        <div class="stack"><span>PID</span><span>Reglerteknik</span><span>Inbyggt</span></div>
+      </article>
+      <article class="card proj reveal d1">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+        <h3>Bensinbil → elbil</h3>
+        <p>Jag konverterade en bensinbil till en elbil och tog mig an hela kedjan: drivlina, batterisystem, kraftelektronik och integration i ett befintligt fordon.</p>
+        <div class="stack"><span>Kraftelektronik</span><span>Batteri</span><span>Fordon</span></div>
+      </article>
+      <article class="card proj reveal d2">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 2v20M9 9l3-3 3 3M9 15l3 3 3-3"/></svg></div>
+        <h3>Hiss-system</h3>
+        <p>Ett projekt kring styrning och automation av ett hisssystem, med fokus på PLC-logik, säkerhet och tillförlitlig drift.</p>
+        <div class="stack"><span>PLC</span><span>Automation</span><span>Säkerhet</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="idx">// 03</div><h2>Färdigheter</h2></div>
+    <div class="skills-grid">
+      <div class="card reveal">
+        <h3>Hard skills</h3>
+        <div class="bar"><div class="row"><span>Python</span><i>88%</i></div><div class="track"><div class="fill" data-w="88"></div></div></div>
+        <div class="bar"><div class="row"><span>C++</span><i>82%</i></div><div class="track"><div class="fill" data-w="82"></div></div></div>
+        <div class="bar"><div class="row"><span>ROS1</span><i>75%</i></div><div class="track"><div class="fill" data-w="75"></div></div></div>
+        <div class="bar"><div class="row"><span>KiCAD</span><i>85%</i></div><div class="track"><div class="fill" data-w="85"></div></div></div>
+        <div class="bar"><div class="row"><span>SolidWorks</span><i>80%</i></div><div class="track"><div class="fill" data-w="80"></div></div></div>
+        <div class="bar"><div class="row"><span>PLC</span><i>78%</i></div><div class="track"><div class="fill" data-w="78"></div></div></div>
+        <div class="bar"><div class="row"><span>LabVIEW</span><i>72%</i></div><div class="track"><div class="fill" data-w="72"></div></div></div>
+      </div>
+      <div class="card reveal d2">
+        <h3>Soft skills</h3>
+        <div class="soft">
+          <div class="soft-item"><span class="n">01</span><div><b>Analytiskt tänkande</b><small>Bryter ner komplexa system till begripliga delar.</small></div></div>
+          <div class="soft-item"><span class="n">02</span><div><b>Problemlösning</b><small>Felsöker metodiskt, från kretsschema till kod.</small></div></div>
+          <div class="soft-item"><span class="n">03</span><div><b>Samarbete</b><small>Lagkänsla från idrotten, in i ingenjörsarbetet.</small></div></div>
+          <div class="soft-item"><span class="n">04</span><div><b>Uthållighet</b><small>Löpning och calisthenics lär en att inte ge upp.</small></div></div>
+          <div class="soft-item"><span class="n">05</span><div><b>Nyfikenhet</b><small>Alltid på jakt efter nästa teknik att lära sig.</small></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="idx" style="font-family:var(--mono);color:var(--cyan);font-size:.85rem;letter-spacing:.15em;margin-bottom:14px">// 04</div>
+      <h2>Låt oss bygga <span class="grad">framtidens elektronik</span>.</h2>
+      <p>Har du ett projekt, en idé eller bara vill snacka hårdvara och AI? Hör av dig.</p>
+      <a class="btn primary" href="mailto:silasekman@gmail.com">SKICKA ETT MEDDELANDE →</a>
+      <div class="socials">
+        <a class="btn" href="https://linkedin.com/in/silasekman" target="_blank" rel="noopener">LINKEDIN</a>
+        <a class="btn" href="https://github.com/" target="_blank" rel="noopener">GITHUB</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© <span id="yr"></span> Silas Ekman · Byggd med kod och kaffe</footer>
+
+<script>
+// year
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// mobile menu
+const burger = document.getElementById('burger'), links = document.getElementById('links');
+burger.addEventListener('click', () => links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+// typing effect
+const phrases = ['> embedded_systems.init()', '> pid.tune(torque_control=True)', '> circuits.read(complexity="high")', '> ai.deploy(target="edge_hardware")'];
+const typingEl = document.getElementById('typing');
+let pi = 0, ci = 0, del = false;
+function type(){
+  const p = phrases[pi];
+  typingEl.textContent = p.slice(0, ci);
+  if(!del && ci === p.length){ del = true; return setTimeout(type, 1700); }
+  if(del && ci === 0){ del = false; pi = (pi + 1) % phrases.length; return setTimeout(type, 350); }
+  ci += del ? -1 : 1;
+  setTimeout(type, del ? 28 : 62);
+}
+type();
+
+// reveal on scroll + skill bars
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(!e.isIntersecting) return;
+    e.target.classList.add('in');
+    e.target.querySelectorAll('.fill').forEach(f => f.style.width = f.dataset.w + '%');
+    io.unobserve(e.target);
+  });
+}, { threshold: .15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// scroll progress + active nav
+const bar = document.getElementById('progress');
+const secs = [...document.querySelectorAll('section[id]')];
+const navLinks = [...links.querySelectorAll('a')];
+function onScroll(){
+  const h = document.documentElement;
+  bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  let cur = '';
+  secs.forEach(s => { if(scrollY >= s.offsetTop - 160) cur = s.id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+// neural / circuit particle background
+const cv = document.getElementById('bg'), ctx = cv.getContext('2d');
+let W, H, pts = [], mouse = { x: -999, y: -999 };
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function resize(){
+  W = cv.width = innerWidth; H = cv.height = innerHeight;
+  const n = Math.min(90, Math.floor(W * H / 20000));
+  pts = Array.from({ length: n }, () => ({
+    x: Math.random() * W, y: Math.random() * H,
+    vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35
+  }));
+}
+addEventListener('resize', resize); resize();
+addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+function draw(){
+  ctx.clearRect(0, 0, W, H);
+  for(let i = 0; i < pts.length; i++){
+    const a = pts[i];
+    a.x += a.vx; a.y += a.vy;
+    if(a.x < 0 || a.x > W) a.vx *= -1;
+    if(a.y < 0 || a.y > H) a.vy *= -1;
+    ctx.beginPath(); ctx.arc(a.x, a.y, 1.5, 0, 6.283);
+    ctx.fillStyle = 'rgba(0,229,255,.7)'; ctx.fill();
+    for(let j = i + 1; j < pts.length; j++){
+      const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+      if(d < 130){
+        ctx.strokeStyle = `rgba(0,229,255,${.16 * (1 - d / 130)})`;
+        ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      }
+    }
+    const dm = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+    if(dm < 160){
+      ctx.strokeStyle = `rgba(139,92,246,${.5 * (1 - dm / 160)})`;
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+    }
+  }
+  if(!reduce) requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
