@@ -170,6 +170,13 @@ html[dir="rtl"] .t-item::before { left: auto; right: -34px; }
 }
 .proj:hover .proj-link { color: var(--text); padding-left: 5px; }
 
+/* Video styling for the project card */
+.proj .video-wrap {
+  width: 100%; border-radius: 8px; overflow: hidden; margin-bottom: 16px; border: 1px solid rgba(0,229,255,.15); transition: .3s; background: #000; display: flex;
+}
+.proj:hover .video-wrap { border-color: rgba(0,229,255,.5); }
+.proj .video-wrap video { width: 100%; height: 140px; object-fit: cover; display: block; pointer-events: none; }
+
 /* skills */
 .skills-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px}
 .skills-grid h3{font-family:var(--mono);font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:22px}
@@ -333,9 +340,11 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
 
     <div class="sub-title reveal" data-i18n="tech_proj">Tekniska projekt</div>
     <div class="projects">
-      <!-- Robotarm -->
+      <!-- Robotarm (MED VIDEO) -->
       <a href="https://uu.diva-portal.org/smash/get/diva2:1967257/FULLTEXT01.pdf" target="_blank" class="card proj reveal">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2"/><circle cx="12" cy="9" r="2"/><circle cx="19" cy="4" r="2"/><path d="M6.2 17.4 10.8 10.6M13.8 8.2 17.2 5.2"/></svg></div>
+        <div class="video-wrap">
+          <video src="robot.mp4" autoplay loop muted playsinline></video>
+        </div>
         <h3 data-i18n="p1_t">Robotarm med momentbaserad PID</h3>
         <p data-i18n="p1_d">Mitt kandidatexamensarbete. Jag utvecklade en robotarm styrd av en momentbaserad PID-regulator, från modell och reglerdesign till fungerande hårdvara.</p>
         <div class="proj-link" data-i18n="read_more">LÄS MER ↗</div>
