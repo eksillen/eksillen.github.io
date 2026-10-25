@@ -148,6 +148,18 @@ html[dir="rtl"] .marathon-wrap .badge { left: auto; right: 12px; }
 .stack{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 .stack span{font-family:var(--mono);font-size:.72rem;padding:4px 10px;border-radius:6px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35);color:#c4b2ff}
 
+/* External Link Styling for Education */
+.edu-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed var(--muted);
+  transition: .3s;
+}
+.edu-link:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+}
+
 /* RTL overrides for timeline */
 html[dir="rtl"] .timeline { padding-left: 0; padding-right: 34px; }
 html[dir="rtl"] .timeline::before { left: auto; right: 7px; }
@@ -328,9 +340,10 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
         <p data-i18n="e_p2">Erfarenhet från Ahlsell som gav mig en bred förståelse för elektronik- och installationskomponenter och för vad kunder faktiskt behöver ute i verkligheten.</p>
       </div>
 
+      <!-- UPPDATERAD UTBILDNINGSSEKTION -->
       <div class="t-item card reveal d2">
         <div class="t-meta" data-i18n="t_edu">Utbildning</div>
-        <h3 data-i18n="e_title3">Civilingenjör i Elektroteknik · Master i Embedded Systems</h3>
+        <h3><a href="https://www.uu.se/utbildning/studieplan?query=2587" target="_blank" rel="noopener noreferrer" class="edu-link" data-i18n="e_title3">Civilingenjör i Elektroteknik · Master i Embedded Systems</a></h3>
         <div class="org">Uppsala universitet</div>
         <p data-i18n="e_p3">Fördjupning i inbyggda system, reglerteknik och design av hård- och mjukvara som samarbetar.</p>
       </div>
