@@ -149,6 +149,18 @@ html[dir="rtl"] .marathon-wrap .badge { left: auto; right: 12px; }
 .stack{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 .stack span{font-family:var(--mono);font-size:.72rem;padding:4px 10px;border-radius:6px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35);color:#c4b2ff}
 
+/* External Link Styling for Education */
+.edu-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed var(--muted);
+  transition: .3s;
+}
+.edu-link:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+}
+
 /* RTL overrides for timeline */
 html[dir="rtl"] .timeline { padding-left: 0; padding-right: 34px; }
 html[dir="rtl"] .timeline::before { left: auto; right: 7px; }
@@ -157,11 +169,16 @@ html[dir="rtl"] .t-item::before { left: auto; right: -34px; }
 .sub-title{font-family:var(--mono);color:var(--muted);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;margin:70px 0 26px;display:flex;align-items:center;gap:14px}
 .sub-title::after{content:"";flex:1;height:1px;background:var(--line)}
 .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.proj{display:flex;flex-direction:column}
-.proj .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.3);margin-bottom:18px;color:var(--cyan)}
+.proj{display:flex;flex-direction:column; text-decoration:none; color:inherit;}
+.proj .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.3);margin-bottom:18px;color:var(--cyan); transition:.3s;}
+.proj:hover .ico{background:rgba(0,229,255,.15); transform:scale(1.05);}
 .proj .ico svg{width:24px;height:24px}
 .proj h3{font-size:1.18rem;margin-bottom:8px}
 .proj p{color:#b3c0d6;font-size:.96rem;flex:1}
+.proj-link {
+  margin-top: 18px; font-family: var(--mono); font-size: 0.75rem; color: var(--cyan); font-weight: 700; letter-spacing: 0.1em; transition: .3s;
+}
+.proj:hover .proj-link { color: var(--text); padding-left: 5px; }
 
 /* skills */
 .skills-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px}
@@ -329,7 +346,6 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
         <p data-i18n="e_p2">Erfarenhet från Ahlsell som gav mig en bred förståelse för elektronik- och installationskomponenter och för vad kunder faktiskt behöver ute i verkligheten.</p>
       </div>
 
-      <!-- UPPDATERAD UTBILDNINGSSEKTION MED KNAPP -->
       <div class="t-item card reveal d2">
         <div class="t-meta" data-i18n="t_edu">Utbildning</div>
         <h3 data-i18n="e_title3">Civilingenjör i Elektroteknik · Master i Embedded Systems</h3>
@@ -341,21 +357,29 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
 
     <div class="sub-title reveal" data-i18n="tech_proj">Tekniska projekt</div>
     <div class="projects">
-      <article class="card proj reveal">
+      <!-- LÄGG IN DINA LÄNKAR HÄR I HREF="#" -->
+      <a href="#" target="_blank" class="card proj reveal">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2"/><circle cx="12" cy="9" r="2"/><circle cx="19" cy="4" r="2"/><path d="M6.2 17.4 10.8 10.6M13.8 8.2 17.2 5.2"/></svg></div>
         <h3 data-i18n="p1_t">Robotarm med momentbaserad PID</h3>
         <p data-i18n="p1_d">Mitt kandidatexamensarbete. Jag utvecklade en robotarm styrd av en momentbaserad PID-regulator, från modell och reglerdesign till fungerande hårdvara.</p>
-      </article>
-      <article class="card proj reveal d1">
+        <div class="proj-link" data-i18n="read_more">LÄS MER ↗</div>
+      </a>
+      
+      <!-- LÄGG IN DINA LÄNKAR HÄR I HREF="#" -->
+      <a href="#" target="_blank" class="card proj reveal d1">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
         <h3 data-i18n="p2_t">Bensinbil → elbil</h3>
         <p data-i18n="p2_d">Jag konverterade en bensinbil till en elbil och tog mig an hela kedjan: drivlina, batterisystem, kraftelektronik och integration i ett befintligt fordon.</p>
-      </article>
-      <article class="card proj reveal d2">
+        <div class="proj-link" data-i18n="read_more">LÄS MER ↗</div>
+      </a>
+      
+      <!-- LÄGG IN DINA LÄNKAR HÄR I HREF="#" -->
+      <a href="#" target="_blank" class="card proj reveal d2">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 2v20M9 9l3-3 3 3M9 15l3 3 3-3"/></svg></div>
         <h3 data-i18n="p3_t">Hiss-system</h3>
         <p data-i18n="p3_d">Ett projekt kring styrning och automation av ett hisssystem, med fokus på PLC-logik, säkerhet och tillförlitlig drift.</p>
-      </article>
+        <div class="proj-link" data-i18n="read_more">LÄS MER ↗</div>
+      </a>
     </div>
   </div>
 </section>
@@ -428,7 +452,7 @@ const dict = {
     s1: "Kretsdesign", s2: "Ventilation", s3: "Dokumentation", s4: "Säkerhetskultur",
     e_org2: "Elteknisk grossist", e_p2: "Erfarenhet från Ahlsell som gav mig en bred förståelse för elektronik- och installationskomponenter och för vad kunder faktiskt behöver ute i verkligheten.",
     e_title3: "Civilingenjör i Elektroteknik · Master i Embedded Systems", e_p3: "Fördjupning i inbyggda system, reglerteknik och design av hård- och mjukvara som samarbetar.",
-    e_link_btn: "SE STUDIEPLAN ↗",
+    e_link_btn: "SE STUDIEPLAN ↗", read_more: "LÄS MER ↗",
     tech_proj: "Tekniska projekt",
     p1_t: "Robotarm med momentbaserad PID", p1_d: "Mitt kandidatexamensarbete. Jag utvecklade en robotarm styrd av en momentbaserad PID-regulator, från modell och reglerdesign till fungerande hårdvara.",
     p2_t: "Bensinbil → elbil", p2_d: "Jag konverterade en bensinbil till en elbil och tog mig an hela kedjan: drivlina, batterisystem, kraftelektronik och integration i ett befintligt fordon.",
@@ -461,7 +485,7 @@ const dict = {
     s1: "Circuit Design", s2: "Ventilation", s3: "Documentation", s4: "Safety Culture",
     e_org2: "Electrical Wholesaler", e_p2: "Gained a broad understanding of electronic components and real-world customer needs.",
     e_title3: "MSc Electrical Eng. · Embedded Systems", e_p3: "Specializing in embedded systems, control theory, and hardware-software integration.",
-    e_link_btn: "VIEW SYLLABUS ↗",
+    e_link_btn: "VIEW SYLLABUS ↗", read_more: "READ MORE ↗",
     tech_proj: "Technical Projects",
     p1_t: "Robotic Arm with Torque PID", p1_d: "My bachelor thesis. Developed a robotic arm controlled by a torque-based PID regulator, from model to hardware.",
     p2_t: "Petrol → EV Conversion", p2_d: "Converted a petrol car to an EV, handling the drivetrain, battery system, and integration.",
@@ -494,7 +518,7 @@ const dict = {
     s1: "تصميم الدوائر", s2: "التهوية", s3: "التوثيق", s4: "ثقافة السلامة",
     e_org2: "موزع كهربائي", e_p2: "اكتسبت فهماً واسعاً للمكونات الإلكترونية واحتياجات العملاء في العالم الحقيقي.",
     e_title3: "ماجستير هندسة كهربائية · أنظمة مدمجة", e_p3: "تخصص في الأنظمة المدمجة، نظرية التحكم، وتكامل الأجهزة والبرمجيات.",
-    e_link_btn: "عرض الخطة الدراسية ↗",
+    e_link_btn: "عرض الخطة الدراسية ↗", read_more: "اقرأ المزيد ↗",
     tech_proj: "المشاريع التقنية",
     p1_t: "ذراع آلي مع تحكم PID", p1_d: "مشروع التخرج. طورت ذراعاً آلياً يتحكم فيه منظم PID، من النموذج إلى الأجهزة.",
     p2_t: "تحويل سيارة بنزين لـ كهربائية", p2_d: "حولت سيارة بنزين إلى سيارة كهربائية، وتوليت نظام الدفع والبطارية.",
