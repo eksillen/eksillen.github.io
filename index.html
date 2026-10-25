@@ -91,21 +91,11 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .scroll-hint i{width:1px;height:34px;background:linear-gradient(var(--cyan),transparent);animation:drop 1.8s infinite}
 @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* section header with audio */
+/* section header */
 .sec-head{margin-bottom:56px}
-.sec-head-flex { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
 .sec-head .idx{font-family:var(--mono);color:var(--cyan);font-size:.85rem;letter-spacing:.15em}
 .sec-head h2{font-size:clamp(2rem,4.2vw,3rem);letter-spacing:-.02em;margin-top:8px;line-height:1.15}
 .sec-head h2::after{content:"";display:block;width:64px;height:3px;background:var(--grad);margin-top:18px;border-radius:3px;box-shadow:0 0 14px var(--cyan)}
-
-/* Audio button */
-.audio-controls { display: flex; align-items: center; gap: 10px; }
-.audio-btn { 
-  display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 0.75rem; 
-  background: rgba(139,92,246,.15); color: #c4b2ff; border: 1px solid rgba(139,92,246,.4); 
-  padding: 8px 16px; border-radius: 99px; cursor: pointer; transition: .3s;
-}
-.audio-btn:hover { background: rgba(139,92,246,.3); transform: translateY(-2px); }
 
 /* about */
 .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:44px;align-items:start}
@@ -276,13 +266,9 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
   <div class="wrap">
     
     <div class="sec-head reveal">
-      <div class="sec-head-flex">
-        <div>
-          <div class="idx">// 01</div>
-          <h2 data-i18n="nav_about">Om mig</h2>
-        </div>
-        
-
+      <div class="idx">// 01</div>
+      <h2 data-i18n="nav_about">Om mig</h2>
+    </div>
 
     <div class="about-grid">
       <div class="about-text reveal">
@@ -428,7 +414,6 @@ const dict = {
     nav_about: "Om mig", nav_exp: "Erfarenhet", nav_skills: "Färdigheter", nav_contact: "Kontakt",
     hero_btn_1: "SE MINA PROJEKT →", hero_btn_2: "KONTAKTA MIG",
     scroll: "SCROLLA",
-    audio_upload: "Ladda upp röstspår", audio_play: "Spela upp", audio_pause: "Pausa",
     about_p1: "Hej, jag heter <strong>Silas</strong>. Jag arbetar som Detail Design Engineer på Vattenfall i Forsmark, där jag varje dag möter kretsdesign och ventilationssystem i en miljö där precision och säkerhet är allt. Parallellt läser jag masterprogrammet i <strong>Embedded Systems</strong> vid Uppsala universitet.",
     about_p2: "Min styrka är att <strong>läsa och förstå komplexa kretsdiagram</strong>. Jag ser hur signaler, spänningar och reglerloopar hänger ihop i ett helt system och inte bara på komponentnivå. Den förmågan vill jag ta med mig in i nästa generations elektronik, där AI inte bara körs i molnet utan sitter inbyggd i själva hårdvaran.",
     about_p3: "Jag trivs som bäst när jag får bygga något som verkligen fungerar: en robotarm som reglerar sitt eget moment, eller en bensinbil som får ett nytt eldrivet hjärta. Teori är kul, men det är när något rör sig för första gången som det blir riktigt roligt.",
@@ -461,7 +446,6 @@ const dict = {
     nav_about: "About me", nav_exp: "Experience", nav_skills: "Skills", nav_contact: "Contact",
     hero_btn_1: "VIEW MY PROJECTS →", hero_btn_2: "CONTACT ME",
     scroll: "SCROLL",
-    audio_upload: "Upload Voice Track", audio_play: "Play Audio", audio_pause: "Pause Audio",
     about_p1: "Hi, I'm <strong>Silas</strong>. I work as a Detail Design Engineer at Vattenfall in Forsmark, where precision and safety are everything. In parallel, I am pursuing my master's in <strong>Embedded Systems</strong> at Uppsala University.",
     about_p2: "My core strength is <strong>understanding complex circuit diagrams</strong>. I see how signals, voltages, and control loops connect in a full system. I want to bring this into the next generation of electronics, where AI runs on the edge hardware.",
     about_p3: "I thrive when building things that actually work: a robotic arm regulating its own torque, or converting a petrol car to electric. Theory is fun, but making things move is what I love.",
@@ -494,7 +478,6 @@ const dict = {
     nav_about: "نبذة عني", nav_exp: "الخبرات", nav_skills: "المهارات", nav_contact: "تواصل معي",
     hero_btn_1: "عرض مشاريعي ←", hero_btn_2: "تواصل معي",
     scroll: "قم بالتمرير",
-    audio_upload: "رفع مقطع صوتي", audio_play: "تشغيل", audio_pause: "إيقاف مؤقت",
     about_p1: "مرحباً، أنا <strong>سيلاس</strong>. أعمل كمهندس تصميم تفصيلي في Vattenfall، حيث الدقة والأمان هما كل شيء. بالتوازي، أدرس الماجستير في <strong>الأنظمة المدمجة</strong> بجامعة أوبسالا.",
     about_p2: "نقطة قوتي هي <strong>فهم المخططات الكهربائية المعقدة</strong>. أرى كيف تترابط الإشارات في نظام كامل. أريد نقل هذا إلى الجيل القادم من الإلكترونيات، حيث يعمل الذكاء الاصطناعي داخل الأجهزة نفسها.",
     about_p3: "أزدهر عندما أبني أشياء تعمل بالفعل: ذراع آلي ينظم عزم الدوران، أو تحويل سيارة بنزين إلى كهربائية. النظريات ممتعة، ولكن جعل الأشياء تتحرك هو ما أحبه.",
@@ -545,56 +528,7 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
         el.innerHTML = dict[currentLang][key];
       }
     });
-
-    // Update audio button text if needed
-    updateAudioBtnText();
   });
-});
-
-// --- AUDIO PLAYER LOGIC ---
-const audioUpload = document.getElementById('audio-upload');
-const audioEl = document.getElementById('about-audio');
-const audioBtn = document.getElementById('audio-btn');
-const audioIcon = document.getElementById('audio-icon');
-const audioText = document.getElementById('audio-text');
-let hasAudio = false;
-
-function updateAudioBtnText() {
-  if (!hasAudio) {
-    audioText.innerHTML = dict[currentLang]['audio_upload'];
-  } else {
-    audioText.innerHTML = audioEl.paused ? dict[currentLang]['audio_play'] : dict[currentLang]['audio_pause'];
-  }
-}
-
-audioBtn.addEventListener('click', () => {
-  if (!hasAudio) {
-    audioUpload.click(); // Open file dialog
-  } else {
-    if (audioEl.paused) {
-      audioEl.play();
-      audioIcon.innerHTML = '⏸️';
-    } else {
-      audioEl.pause();
-      audioIcon.innerHTML = '▶️';
-    }
-    updateAudioBtnText();
-  }
-});
-
-audioUpload.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    audioEl.src = URL.createObjectURL(file);
-    hasAudio = true;
-    audioIcon.innerHTML = '▶️';
-    updateAudioBtnText();
-  }
-});
-
-audioEl.addEventListener('ended', () => {
-  audioIcon.innerHTML = '▶️';
-  updateAudioBtnText();
 });
 
 // --- EXISTING SCRIPTS ---
