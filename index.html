@@ -74,24 +74,11 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .burger{display:none;background:none;border:1px solid var(--line);color:var(--text);width:42px;height:42px;border-radius:8px;cursor:pointer;font-size:1.1rem}
 
 /* hero */
-#hero{min-height:100vh;display:flex;align-items:center;padding-top:110px}
-.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:50px;align-items:center}
-.tag{
-  display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.78rem;
-  color:var(--cyan);border:1px solid rgba(0,229,255,.3);padding:7px 14px;border-radius:99px;
-  background:rgba(0,229,255,.06);letter-spacing:.08em;
-}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:pulse 1.8s infinite}
-@keyframes pulse{50%{opacity:.3;transform:scale(.8)}}
-h1{
-  font-size:clamp(2.5rem,6.2vw,4.9rem);line-height:1.04;font-weight:700;letter-spacing:-.03em;margin:26px 0 22px;
-}
-.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero-sub{color:var(--muted);font-size:1.15rem;max-width:560px}
-.typing{font-family:var(--mono);color:var(--cyan);margin-top:22px;min-height:1.6em;font-size:1rem}
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding-top:110px}
+.typing{font-family:var(--mono);color:var(--cyan);margin-top:22px;min-height:1.6em;font-size:1.1rem;display:flex;justify-content:center}
 .typing::after{content:"▍";animation:blink 1s steps(2) infinite;margin-left:2px}
 @keyframes blink{50%{opacity:0}}
-.cta{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap}
+.cta{display:flex;gap:16px;margin-top:32px;justify-content:center;flex-wrap:wrap}
 .btn{
   font-family:var(--mono);font-size:.85rem;padding:14px 26px;border-radius:10px;letter-spacing:.06em;
   border:1px solid var(--cyan);color:var(--cyan);transition:.3s;position:relative;overflow:hidden; cursor:pointer;
@@ -99,13 +86,6 @@ h1{
 .btn.primary{background:var(--grad);border-color:transparent;color:#021018;font-weight:700}
 .btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px -8px var(--cyan)}
 
-/* chip visual */
-.chip-wrap{display:grid;place-items:center}
-.chip{width:min(340px,80vw);aspect-ratio:1;position:relative;animation:float 6s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-14px)}}
-.chip svg{width:100%;height:100%;overflow:visible}
-.trace{stroke-dasharray:6 8;animation:flow 2.5s linear infinite}
-@keyframes flow{to{stroke-dashoffset:-56}}
 .scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.2em;display:flex;flex-direction:column;align-items:center;gap:8px}
 .scroll-hint i{width:1px;height:34px;background:linear-gradient(var(--cyan),transparent);animation:drop 1.8s infinite}
 @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
@@ -127,23 +107,23 @@ h1{
 .audio-btn:hover { background: rgba(139,92,246,.3); transform: translateY(-2px); }
 
 /* about */
-.about-grid{display:grid;grid-template-columns:1.2fr 1.1fr;gap:44px;align-items:start}
+.about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:44px;align-items:start}
 .about-text p{color:#c3cee0;font-size:1.06rem;margin-bottom:18px}
 .about-text strong{color:var(--text)}
 
 /* marathon photo */
 .marathon-wrap {
-  margin-top: 24px; border-radius: 12px; padding: 4px; background: rgba(255,255,255,.02); border: 1px solid var(--line); display: inline-block; position: relative; overflow: hidden; max-width: 340px; transition: .35s;
+  border-radius: 16px; padding: 4px; background: rgba(255,255,255,.02); border: 1px solid var(--line); display: block; position: relative; overflow: hidden; width: 100%; transition: .35s; margin-bottom: 28px;
 }
 .marathon-wrap:hover { border-color: rgba(0, 229, 255, 0.4); box-shadow: 0 0 20px rgba(0, 229, 255, 0.1); }
-.marathon-wrap img { width: 100%; height: auto; border-radius: 8px; display: block; filter: grayscale(30%) contrast(1.1); transition: .4s ease; }
+.marathon-wrap img { width: 100%; height: auto; border-radius: 12px; display: block; filter: grayscale(30%) contrast(1.1); transition: .4s ease; }
 .marathon-wrap:hover img { filter: grayscale(0%) contrast(1); transform: scale(1.02); }
-.marathon-wrap .badge { position: absolute; bottom: 12px; left: 12px; background: rgba(10, 15, 26, 0.85); backdrop-filter: blur(4px); border: 1px solid var(--line); color: var(--cyan); font-family: var(--mono); font-size: 0.65rem; padding: 5px 10px; border-radius: 6px; letter-spacing: 0.05em; font-weight: 700; }
+.marathon-wrap .badge { position: absolute; bottom: 12px; left: 12px; background: rgba(10, 15, 26, 0.85); backdrop-filter: blur(4px); border: 1px solid var(--line); color: var(--cyan); font-family: var(--mono); font-size: 0.65rem; padding: 5px 10px; border-radius: 6px; letter-spacing: 0.05em; font-weight: 700; z-index: 2;}
 html[dir="rtl"] .marathon-wrap .badge { left: auto; right: 12px; }
 
 /* picture and card container */
-.about-media { display: flex; flex-direction: column; gap: 28px; }
-.profile-frame { position: relative; width: 100%; max-width: 440px; margin: 0 auto; border-radius: 20px; padding: 5px; background: linear-gradient(135deg, var(--cyan), var(--violet)); box-shadow: 0 0 30px rgba(0, 229, 255, 0.15); overflow: hidden; transition: .35s; }
+.about-media { display: flex; flex-direction: column; gap: 0; }
+.profile-frame { position: relative; width: 100%; max-width: 320px; margin: 0 auto; border-radius: 20px; padding: 5px; background: linear-gradient(135deg, var(--cyan), var(--violet)); box-shadow: 0 0 30px rgba(0, 229, 255, 0.15); overflow: hidden; transition: .35s; }
 .profile-frame:hover { transform: translateY(-4px); box-shadow: 0 0 45px rgba(0, 229, 255, 0.3); }
 .profile-img { width: 100%; height: auto; display: block; border-radius: 16px; object-fit: cover; aspect-ratio: 1; }
 
@@ -211,10 +191,8 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
 .d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
 
 @media (max-width:900px){
-  .hero-grid,.about-grid,.skills-grid{grid-template-columns:1fr}
+  .about-grid,.skills-grid{grid-template-columns:1fr}
   .projects{grid-template-columns:1fr}
-  .chip-wrap{order:-1}
-  .chip{width:min(220px,60vw)}
   .nav-right{flex-direction: row-reverse;}
   .links{
     position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:rgba(5,7,13,.96);
@@ -260,43 +238,16 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
 
 <!-- HERO -->
 <section id="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="tag reveal"><i class="dot"></i> <span data-i18n="hero_tag">SYSTEM ONLINE — Silas Ekman</span></span>
-      <h1 class="reveal d1" data-i18n="hero_h1">Där <span class="grad">hårdvara</span> möter <span class="grad">intelligens</span>.</h1>
-      <p class="hero-sub reveal d2" data-i18n="hero_p">Jag är civilingenjörsstudent i elektroteknik och designar elektronik som tänker. Från kretskort och regulatorer till framtidens AI-integrerade inbyggda system.</p>
-      <div class="typing reveal d2" id="typing" dir="ltr"></div>
-      <div class="cta reveal d3">
-        <a href="#experience" class="btn primary" data-i18n="hero_btn_1">SE MINA PROJEKT →</a>
-        <a href="#contact" class="btn" data-i18n="hero_btn_2">KONTAKTA MIG</a>
-      </div>
+  <div class="wrap reveal">
+    <div class="profile-frame" style="margin-bottom: 24px;">
+      <img src="silas_ekman.png" alt="Silas Ekman" class="profile-img">
     </div>
-    <div class="chip-wrap reveal d2">
-      <div class="chip">
-        <svg viewBox="0 0 300 300" fill="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
-            <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-          <g stroke="url(#g)" stroke-width="1.6" filter="url(#glow)">
-            <rect x="85" y="85" width="130" height="130" rx="14" fill="rgba(0,229,255,.05)"/>
-            <rect x="112" y="112" width="76" height="76" rx="8"/>
-          </g>
-          <g stroke="url(#g)" stroke-width="1.5" class="trace" filter="url(#glow)">
-            <path d="M100 85V30H40"/><path d="M130 85V10"/><path d="M170 85V40H230"/><path d="M200 85V20H270"/>
-            <path d="M100 215v55H50"/><path d="M140 215v75"/><path d="M175 215v50h60"/><path d="M200 215v70"/>
-            <path d="M85 110H30V70"/><path d="M85 150H5"/><path d="M85 190H40v40"/>
-            <path d="M215 110h55V60"/><path d="M215 150h80"/><path d="M215 190h45v45"/>
-          </g>
-          <g fill="#00e5ff" filter="url(#glow)">
-            <circle cx="40" cy="30" r="3.5"/><circle cx="130" cy="10" r="3.5"/><circle cx="230" cy="40" r="3.5"/><circle cx="270" cy="20" r="3.5"/>
-            <circle cx="50" cy="270" r="3.5"/><circle cx="140" cy="290" r="3.5"/><circle cx="235" cy="265" r="3.5"/><circle cx="200" cy="285" r="3.5"/>
-            <circle cx="30" cy="70" r="3.5"/><circle cx="5" cy="150" r="3.5"/><circle cx="40" cy="230" r="3.5"/>
-            <circle cx="270" cy="60" r="3.5"/><circle cx="295" cy="150" r="3.5"/><circle cx="260" cy="235" r="3.5"/>
-          </g>
-          <text x="150" y="157" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="url(#g)" data-i18n="ai_text">AI</text>
-        </svg>
-      </div>
+    
+    <div class="typing reveal d1" id="typing" dir="ltr"></div>
+    
+    <div class="cta reveal d2">
+      <a href="#experience" class="btn primary" data-i18n="hero_btn_1">SE MINA PROJEKT →</a>
+      <a href="#contact" class="btn" data-i18n="hero_btn_2">KONTAKTA MIG</a>
     </div>
   </div>
   <div class="scroll-hint"><span data-i18n="scroll">SCROLLA</span><i></i></div>
@@ -331,17 +282,14 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
         <p data-i18n="about_p2">Min styrka är att <strong>läsa och förstå komplexa kretsdiagram</strong>. Jag ser hur signaler, spänningar och reglerloopar hänger ihop i ett helt system och inte bara på komponentnivå. Den förmågan vill jag ta med mig in i nästa generations elektronik, där AI inte bara körs i molnet utan sitter inbyggd i själva hårdvaran.</p>
         <p data-i18n="about_p3">Jag trivs som bäst när jag får bygga något som verkligen fungerar: en robotarm som reglerar sitt eget moment, eller en bensinbil som får ett nytt eldrivet hjärta. Teori är kul, men det är när något rör sig för första gången som det blir riktigt roligt.</p>
         <p data-i18n="about_p4">Utomhus laddar jag batterierna genom <strong>löpning</strong>, <strong>calisthenics</strong> och <strong>beachvolleyboll</strong>. De ger mig uthållighet, disciplin och lagkänsla, och dem tar jag med mig in i varje projekt.</p>
-        
-        <div class="marathon-wrap">
+      </div>
+      
+      <div class="about-media">
+        <div class="marathon-wrap reveal d1">
           <img src="4540.jpg" alt="Silas Ekman springer Uppsala Maraton">
           <div class="badge" data-i18n="marathon_badge">📍 UPPSALA MARATON</div>
         </div>
-
-      </div>
-      <div class="about-media">
-        <div class="profile-frame reveal">
-          <img src="silas_ekman.jpg" alt="Silas Ekman" class="profile-img">
-        </div>
+        
         <div class="card facts reveal d2">
           <div class="fact"><div class="k" data-i18n="f_role">Roll</div><div class="v">Detail Design Engineer @ Vattenfall</div></div>
           <div class="fact"><div class="k" data-i18n="f_edu">Utbildning</div><div class="v" data-i18n="f_edu_v">Civilingenjör Elektroteknik, MSc Embedded Systems — Uppsala universitet</div></div>
@@ -447,7 +395,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
       <p data-i18n="c_desc">Har du ett projekt, en idé eller bara vill snacka hårdvara och AI? Hör av dig.</p>
       <a class="btn primary" href="mailto:silasekman@gmail.com" data-i18n="c_btn">SKICKA ETT MEDDELANDE →</a>
       <div class="socials">
-        <a class="btn" href="https://linkedin.com/in/silasekman" target="_blank" rel="noopener">LINKEDIN</a>
+        <a class="btn" href="https://www.linkedin.com/in/silas-ekman-42a336181/" target="_blank" rel="noopener">LINKEDIN</a>
         <a class="btn" href="https://github.com/" target="_blank" rel="noopener">GITHUB</a>
       </div>
     </div>
@@ -461,11 +409,8 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
 const dict = {
   sv: {
     nav_about: "Om mig", nav_exp: "Erfarenhet", nav_skills: "Färdigheter", nav_contact: "Kontakt",
-    hero_tag: "SYSTEM ONLINE — Silas Ekman",
-    hero_h1: 'Där <span class="grad">hårdvara</span> möter <span class="grad">intelligens</span>.',
-    hero_p: "Jag är civilingenjörsstudent i elektroteknik och designar elektronik som tänker. Från kretskort och regulatorer till framtidens AI-integrerade inbyggda system.",
     hero_btn_1: "SE MINA PROJEKT →", hero_btn_2: "KONTAKTA MIG",
-    ai_text: "AI", scroll: "SCROLLA",
+    scroll: "SCROLLA",
     audio_upload: "Ladda upp röstspår", audio_play: "Spela upp", audio_pause: "Pausa",
     about_p1: "Hej, jag heter <strong>Silas</strong>. Jag arbetar som Detail Design Engineer på Vattenfall i Forsmark, där jag varje dag möter kretsdesign och ventilationssystem i en miljö där precision och säkerhet är allt. Parallellt läser jag masterprogrammet i <strong>Embedded Systems</strong> vid Uppsala universitet.",
     about_p2: "Min styrka är att <strong>läsa och förstå komplexa kretsdiagram</strong>. Jag ser hur signaler, spänningar och reglerloopar hänger ihop i ett helt system och inte bara på komponentnivå. Den förmågan vill jag ta med mig in i nästa generations elektronik, där AI inte bara körs i molnet utan sitter inbyggd i själva hårdvaran.",
@@ -496,11 +441,8 @@ const dict = {
   },
   en: {
     nav_about: "About me", nav_exp: "Experience", nav_skills: "Skills", nav_contact: "Contact",
-    hero_tag: "SYSTEM ONLINE — Silas Ekman",
-    hero_h1: 'Where <span class="grad">hardware</span> meets <span class="grad">intelligence</span>.',
-    hero_p: "I am an electrical engineering master's student designing electronics that think. From PCBs to the future of AI-integrated embedded systems.",
     hero_btn_1: "VIEW MY PROJECTS →", hero_btn_2: "CONTACT ME",
-    ai_text: "AI", scroll: "SCROLL",
+    scroll: "SCROLL",
     audio_upload: "Upload Voice Track", audio_play: "Play Audio", audio_pause: "Pause Audio",
     about_p1: "Hi, I'm <strong>Silas</strong>. I work as a Detail Design Engineer at Vattenfall in Forsmark, where precision and safety are everything. In parallel, I am pursuing my master's in <strong>Embedded Systems</strong> at Uppsala University.",
     about_p2: "My core strength is <strong>understanding complex circuit diagrams</strong>. I see how signals, voltages, and control loops connect in a full system. I want to bring this into the next generation of electronics, where AI runs on the edge hardware.",
@@ -531,11 +473,8 @@ const dict = {
   },
   ar: {
     nav_about: "نبذة عني", nav_exp: "الخبرات", nav_skills: "المهارات", nav_contact: "تواصل معي",
-    hero_tag: "النظام متصل — سيلاس إكمان",
-    hero_h1: 'حيث تلتقي <span class="grad">الأجهزة</span> مع <span class="grad">الذكاء</span>.',
-    hero_p: "أنا طالب ماجستير في الهندسة الكهربائية، أصمم إلكترونيات تفكر. من اللوحات الإلكترونية إلى الأنظمة المدمجة المدعومة بالذكاء الاصطناعي.",
     hero_btn_1: "عرض مشاريعي ←", hero_btn_2: "تواصل معي",
-    ai_text: "الذكاء الاصطناعي", scroll: "قم بالتمرير",
+    scroll: "قم بالتمرير",
     audio_upload: "رفع مقطع صوتي", audio_play: "تشغيل", audio_pause: "إيقاف مؤقت",
     about_p1: "مرحباً، أنا <strong>سيلاس</strong>. أعمل كمهندس تصميم تفصيلي في Vattenfall، حيث الدقة والأمان هما كل شيء. بالتوازي، أدرس الماجستير في <strong>الأنظمة المدمجة</strong> بجامعة أوبسالا.",
     about_p2: "نقطة قوتي هي <strong>فهم المخططات الكهربائية المعقدة</strong>. أرى كيف تترابط الإشارات في نظام كامل. أريد نقل هذا إلى الجيل القادم من الإلكترونيات، حيث يعمل الذكاء الاصطناعي داخل الأجهزة نفسها.",
