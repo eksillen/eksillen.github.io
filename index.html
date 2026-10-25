@@ -82,6 +82,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .btn{
   font-family:var(--mono);font-size:.85rem;padding:14px 26px;border-radius:10px;letter-spacing:.06em;
   border:1px solid var(--cyan);color:var(--cyan);transition:.3s;position:relative;overflow:hidden; cursor:pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
 }
 .btn.primary{background:var(--grad);border-color:transparent;color:#021018;font-weight:700}
 .btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px -8px var(--cyan)}
@@ -147,18 +148,6 @@ html[dir="rtl"] .marathon-wrap .badge { left: auto; right: 12px; }
 .t-item p{color:#c3cee0}
 .stack{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 .stack span{font-family:var(--mono);font-size:.72rem;padding:4px 10px;border-radius:6px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35);color:#c4b2ff}
-
-/* External Link Styling for Education */
-.edu-link {
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px dashed var(--muted);
-  transition: .3s;
-}
-.edu-link:hover {
-  color: var(--cyan);
-  border-color: var(--cyan);
-}
 
 /* RTL overrides for timeline */
 html[dir="rtl"] .timeline { padding-left: 0; padding-right: 34px; }
@@ -340,12 +329,13 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
         <p data-i18n="e_p2">Erfarenhet från Ahlsell som gav mig en bred förståelse för elektronik- och installationskomponenter och för vad kunder faktiskt behöver ute i verkligheten.</p>
       </div>
 
-      <!-- UPPDATERAD UTBILDNINGSSEKTION -->
+      <!-- UPPDATERAD UTBILDNINGSSEKTION MED KNAPP -->
       <div class="t-item card reveal d2">
         <div class="t-meta" data-i18n="t_edu">Utbildning</div>
-        <h3><a href="https://www.uu.se/utbildning/studieplan?query=2587" target="_blank" rel="noopener noreferrer" class="edu-link" data-i18n="e_title3">Civilingenjör i Elektroteknik · Master i Embedded Systems</a></h3>
+        <h3 data-i18n="e_title3">Civilingenjör i Elektroteknik · Master i Embedded Systems</h3>
         <div class="org">Uppsala universitet</div>
         <p data-i18n="e_p3">Fördjupning i inbyggda system, reglerteknik och design av hård- och mjukvara som samarbetar.</p>
+        <a href="https://www.uu.se/utbildning/studieplan?query=2587" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top: 16px; font-size: 0.75rem; padding: 10px 20px;" data-i18n="e_link_btn">SE STUDIEPLAN ↗</a>
       </div>
     </div>
 
@@ -438,6 +428,7 @@ const dict = {
     s1: "Kretsdesign", s2: "Ventilation", s3: "Dokumentation", s4: "Säkerhetskultur",
     e_org2: "Elteknisk grossist", e_p2: "Erfarenhet från Ahlsell som gav mig en bred förståelse för elektronik- och installationskomponenter och för vad kunder faktiskt behöver ute i verkligheten.",
     e_title3: "Civilingenjör i Elektroteknik · Master i Embedded Systems", e_p3: "Fördjupning i inbyggda system, reglerteknik och design av hård- och mjukvara som samarbetar.",
+    e_link_btn: "SE STUDIEPLAN ↗",
     tech_proj: "Tekniska projekt",
     p1_t: "Robotarm med momentbaserad PID", p1_d: "Mitt kandidatexamensarbete. Jag utvecklade en robotarm styrd av en momentbaserad PID-regulator, från modell och reglerdesign till fungerande hårdvara.",
     p2_t: "Bensinbil → elbil", p2_d: "Jag konverterade en bensinbil till en elbil och tog mig an hela kedjan: drivlina, batterisystem, kraftelektronik och integration i ett befintligt fordon.",
@@ -470,6 +461,7 @@ const dict = {
     s1: "Circuit Design", s2: "Ventilation", s3: "Documentation", s4: "Safety Culture",
     e_org2: "Electrical Wholesaler", e_p2: "Gained a broad understanding of electronic components and real-world customer needs.",
     e_title3: "MSc Electrical Eng. · Embedded Systems", e_p3: "Specializing in embedded systems, control theory, and hardware-software integration.",
+    e_link_btn: "VIEW SYLLABUS ↗",
     tech_proj: "Technical Projects",
     p1_t: "Robotic Arm with Torque PID", p1_d: "My bachelor thesis. Developed a robotic arm controlled by a torque-based PID regulator, from model to hardware.",
     p2_t: "Petrol → EV Conversion", p2_d: "Converted a petrol car to an EV, handling the drivetrain, battery system, and integration.",
@@ -502,6 +494,7 @@ const dict = {
     s1: "تصميم الدوائر", s2: "التهوية", s3: "التوثيق", s4: "ثقافة السلامة",
     e_org2: "موزع كهربائي", e_p2: "اكتسبت فهماً واسعاً للمكونات الإلكترونية واحتياجات العملاء في العالم الحقيقي.",
     e_title3: "ماجستير هندسة كهربائية · أنظمة مدمجة", e_p3: "تخصص في الأنظمة المدمجة، نظرية التحكم، وتكامل الأجهزة والبرمجيات.",
+    e_link_btn: "عرض الخطة الدراسية ↗",
     tech_proj: "المشاريع التقنية",
     p1_t: "ذراع آلي مع تحكم PID", p1_d: "مشروع التخرج. طورت ذراعاً آلياً يتحكم فيه منظم PID، من النموذج إلى الأجهزة.",
     p2_t: "تحويل سيارة بنزين لـ كهربائية", p2_d: "حولت سيارة بنزين إلى سيارة كهربائية، وتوليت نظام الدفع والبطارية.",
