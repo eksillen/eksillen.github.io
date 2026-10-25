@@ -7,7 +7,7 @@
 <meta name="description" content="Portfolio för Silas Ekman: Detail Design Engineer och masterstudent i Embedded Systems i gränslandet mellan elektronik och artificiell intelligens.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#05070d;
@@ -29,7 +29,10 @@ body{
   background:var(--bg);color:var(--text);font-family:var(--sans);
   line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
-body::before{ /* grid */
+html[dir="rtl"] body {
+  font-family: 'Tajawal', var(--sans);
+}
+body::before{ 
   content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
   background-image:
     linear-gradient(var(--line) 1px,transparent 1px),
@@ -45,10 +48,9 @@ a{color:inherit;text-decoration:none}
 .wrap{width:min(1120px,100% - 40px);margin-inline:auto}
 section{padding:110px 0;position:relative}
 
-/* progress bar */
 #progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--grad);z-index:100;box-shadow:0 0 12px var(--cyan)}
 
-/* nav */
+/* nav & language toggle */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:50;
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
@@ -57,11 +59,18 @@ nav{
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
 .logo{font-family:var(--mono);font-weight:700;letter-spacing:.04em}
 .logo span{color:var(--cyan)}
+.nav-right { display: flex; align-items: center; gap: 30px; }
 .links{display:flex;gap:30px;list-style:none}
 .links a{font-family:var(--mono);font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;transition:.25s;position:relative}
 .links a:hover,.links a.active{color:var(--cyan)}
 .links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--cyan);transition:.3s;box-shadow:0 0 8px var(--cyan)}
 .links a:hover::after,.links a.active::after{width:100%}
+
+.lang-switch { display: flex; gap: 6px; background: rgba(255,255,255,.05); padding: 4px; border-radius: 8px; border: 1px solid var(--line); }
+.lang-btn { background: none; border: none; color: var(--muted); font-family: var(--mono); font-size: 0.7rem; padding: 4px 8px; border-radius: 4px; cursor: pointer; transition: .3s; }
+.lang-btn:hover { color: var(--text); }
+.lang-btn.active { background: rgba(0,229,255,.15); color: var(--cyan); font-weight: bold; }
+
 .burger{display:none;background:none;border:1px solid var(--line);color:var(--text);width:42px;height:42px;border-radius:8px;cursor:pointer;font-size:1.1rem}
 
 /* hero */
@@ -85,7 +94,7 @@ h1{
 .cta{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap}
 .btn{
   font-family:var(--mono);font-size:.85rem;padding:14px 26px;border-radius:10px;letter-spacing:.06em;
-  border:1px solid var(--cyan);color:var(--cyan);transition:.3s;position:relative;overflow:hidden;
+  border:1px solid var(--cyan);color:var(--cyan);transition:.3s;position:relative;overflow:hidden; cursor:pointer;
 }
 .btn.primary{background:var(--grad);border-color:transparent;color:#021018;font-weight:700}
 .btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px -8px var(--cyan)}
@@ -101,11 +110,21 @@ h1{
 .scroll-hint i{width:1px;height:34px;background:linear-gradient(var(--cyan),transparent);animation:drop 1.8s infinite}
 @keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* section header */
+/* section header with audio */
 .sec-head{margin-bottom:56px}
+.sec-head-flex { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
 .sec-head .idx{font-family:var(--mono);color:var(--cyan);font-size:.85rem;letter-spacing:.15em}
 .sec-head h2{font-size:clamp(2rem,4.2vw,3rem);letter-spacing:-.02em;margin-top:8px;line-height:1.15}
 .sec-head h2::after{content:"";display:block;width:64px;height:3px;background:var(--grad);margin-top:18px;border-radius:3px;box-shadow:0 0 14px var(--cyan)}
+
+/* Audio button */
+.audio-controls { display: flex; align-items: center; gap: 10px; }
+.audio-btn { 
+  display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 0.75rem; 
+  background: rgba(139,92,246,.15); color: #c4b2ff; border: 1px solid rgba(139,92,246,.4); 
+  padding: 8px 16px; border-radius: 99px; cursor: pointer; transition: .3s;
+}
+.audio-btn:hover { background: rgba(139,92,246,.3); transform: translateY(-2px); }
 
 /* about */
 .about-grid{display:grid;grid-template-columns:1.2fr 1.1fr;gap:44px;align-items:start}
@@ -114,84 +133,21 @@ h1{
 
 /* marathon photo */
 .marathon-wrap {
-  margin-top: 24px;
-  border-radius: 12px;
-  padding: 4px;
-  background: rgba(255,255,255,.02);
-  border: 1px solid var(--line);
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-  max-width: 340px;
-  transition: .35s;
+  margin-top: 24px; border-radius: 12px; padding: 4px; background: rgba(255,255,255,.02); border: 1px solid var(--line); display: inline-block; position: relative; overflow: hidden; max-width: 340px; transition: .35s;
 }
-.marathon-wrap:hover {
-  border-color: rgba(0, 229, 255, 0.4);
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
-}
-.marathon-wrap img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  display: block;
-  filter: grayscale(30%) contrast(1.1);
-  transition: .4s ease;
-}
-.marathon-wrap:hover img {
-  filter: grayscale(0%) contrast(1);
-  transform: scale(1.02);
-}
-.marathon-wrap .badge {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  background: rgba(10, 15, 26, 0.85);
-  backdrop-filter: blur(4px);
-  border: 1px solid var(--line);
-  color: var(--cyan);
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  padding: 5px 10px;
-  border-radius: 6px;
-  letter-spacing: 0.05em;
-  font-weight: 700;
-}
+.marathon-wrap:hover { border-color: rgba(0, 229, 255, 0.4); box-shadow: 0 0 20px rgba(0, 229, 255, 0.1); }
+.marathon-wrap img { width: 100%; height: auto; border-radius: 8px; display: block; filter: grayscale(30%) contrast(1.1); transition: .4s ease; }
+.marathon-wrap:hover img { filter: grayscale(0%) contrast(1); transform: scale(1.02); }
+.marathon-wrap .badge { position: absolute; bottom: 12px; left: 12px; background: rgba(10, 15, 26, 0.85); backdrop-filter: blur(4px); border: 1px solid var(--line); color: var(--cyan); font-family: var(--mono); font-size: 0.65rem; padding: 5px 10px; border-radius: 6px; letter-spacing: 0.05em; font-weight: 700; }
+html[dir="rtl"] .marathon-wrap .badge { left: auto; right: 12px; }
 
 /* picture and card container */
-.about-media {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-.profile-frame {
-  position: relative;
-  width: 100%;
-  max-width: 440px;
-  margin: 0 auto;
-  border-radius: 20px;
-  padding: 5px;
-  background: linear-gradient(135deg, var(--cyan), var(--violet));
-  box-shadow: 0 0 30px rgba(0, 229, 255, 0.15);
-  overflow: hidden;
-  transition: .35s;
-}
-.profile-frame:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 45px rgba(0, 229, 255, 0.3);
-}
-.profile-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 16px;
-  object-fit: cover;
-  aspect-ratio: 1;
-}
+.about-media { display: flex; flex-direction: column; gap: 28px; }
+.profile-frame { position: relative; width: 100%; max-width: 440px; margin: 0 auto; border-radius: 20px; padding: 5px; background: linear-gradient(135deg, var(--cyan), var(--violet)); box-shadow: 0 0 30px rgba(0, 229, 255, 0.15); overflow: hidden; transition: .35s; }
+.profile-frame:hover { transform: translateY(-4px); box-shadow: 0 0 45px rgba(0, 229, 255, 0.3); }
+.profile-img { width: 100%; height: auto; display: block; border-radius: 16px; object-fit: cover; aspect-ratio: 1; }
 
-.card{
-  background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);position:relative;transition:.35s;
-}
+.card{ background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px; backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);position:relative;transition:.35s; }
 .card:hover{border-color:rgba(0,229,255,.45);box-shadow:0 0 40px -12px rgba(0,229,255,.35);transform:translateY(-4px)}
 .facts{display:grid;gap:18px}
 .fact .k{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
@@ -204,16 +160,18 @@ h1{
 .timeline{position:relative;padding-left:34px}
 .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--cyan),var(--violet),transparent)}
 .t-item{position:relative;margin-bottom:28px}
-.t-item::before{
-  content:"";position:absolute;left:-34px;top:26px;width:16px;height:16px;border-radius:50%;
-  background:var(--bg);border:2px solid var(--cyan);box-shadow:0 0 14px var(--cyan);
-}
+.t-item::before{ content:"";position:absolute;left:-34px;top:26px;width:16px;height:16px;border-radius:50%; background:var(--bg);border:2px solid var(--cyan);box-shadow:0 0 14px var(--cyan); }
 .t-meta{font-family:var(--mono);font-size:.75rem;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase}
 .t-item h3{font-size:1.35rem;margin:6px 0 2px}
 .t-item .org{color:var(--muted);margin-bottom:12px;font-size:.95rem}
 .t-item p{color:#c3cee0}
 .stack{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 .stack span{font-family:var(--mono);font-size:.72rem;padding:4px 10px;border-radius:6px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35);color:#c4b2ff}
+
+/* RTL overrides for timeline */
+html[dir="rtl"] .timeline { padding-left: 0; padding-right: 34px; }
+html[dir="rtl"] .timeline::before { left: auto; right: 7px; }
+html[dir="rtl"] .t-item::before { left: auto; right: -34px; }
 
 .sub-title{font-family:var(--mono);color:var(--muted);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;margin:70px 0 26px;display:flex;align-items:center;gap:14px}
 .sub-title::after{content:"";flex:1;height:1px;background:var(--line)}
@@ -235,6 +193,7 @@ h1{
 .soft{display:grid;gap:14px}
 .soft-item{display:flex;gap:14px;align-items:flex-start;padding:14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.02);transition:.3s}
 .soft-item:hover{border-color:var(--violet);transform:translateX(4px)}
+html[dir="rtl"] .soft-item:hover{transform:translateX(-4px)}
 .soft-item b{display:block;font-weight:600}
 .soft-item small{color:var(--muted);font-size:.86rem}
 .soft-item .n{font-family:var(--mono);color:var(--violet);font-weight:700}
@@ -256,6 +215,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
   .projects{grid-template-columns:1fr}
   .chip-wrap{order:-1}
   .chip{width:min(220px,60vw)}
+  .nav-right{flex-direction: row-reverse;}
   .links{
     position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:rgba(5,7,13,.96);
     border-bottom:1px solid var(--line);max-height:0;overflow:hidden;transition:max-height .4s;
@@ -280,13 +240,21 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
 <nav>
   <div class="wrap">
     <a href="#hero" class="logo">&lt;<span>SE</span>/&gt;</a>
-    <button class="burger" aria-label="Meny" id="burger">☰</button>
-    <ul class="links" id="links">
-      <li><a href="#about">Om mig</a></li>
-      <li><a href="#experience">Erfarenhet</a></li>
-      <li><a href="#skills">Färdigheter</a></li>
-      <li><a href="#contact">Kontakt</a></li>
-    </ul>
+    
+    <div class="nav-right">
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="sv">SV</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ar">AR</button>
+      </div>
+      <button class="burger" aria-label="Meny" id="burger">☰</button>
+      <ul class="links" id="links">
+        <li><a href="#about" data-i18n="nav_about">Om mig</a></li>
+        <li><a href="#experience" data-i18n="nav_exp">Erfarenhet</a></li>
+        <li><a href="#skills" data-i18n="nav_skills">Färdigheter</a></li>
+        <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 
@@ -294,13 +262,13 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
 <section id="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="tag reveal"><i class="dot"></i> SYSTEM ONLINE — Silas Ekman</span>
-      <h1 class="reveal d1">Där <span class="grad">hårdvara</span> möter <span class="grad">intelligens</span>.</h1>
-      <p class="hero-sub reveal d2">Jag är civilingenjörsstudent i elektroteknik och designar elektronik som tänker. Från kretskort och regulatorer till framtidens AI-integrerade inbyggda system.</p>
-      <div class="typing reveal d2" id="typing"></div>
+      <span class="tag reveal"><i class="dot"></i> <span data-i18n="hero_tag">SYSTEM ONLINE — Silas Ekman</span></span>
+      <h1 class="reveal d1" data-i18n="hero_h1">Där <span class="grad">hårdvara</span> möter <span class="grad">intelligens</span>.</h1>
+      <p class="hero-sub reveal d2" data-i18n="hero_p">Jag är civilingenjörsstudent i elektroteknik och designar elektronik som tänker. Från kretskort och regulatorer till framtidens AI-integrerade inbyggda system.</p>
+      <div class="typing reveal d2" id="typing" dir="ltr"></div>
       <div class="cta reveal d3">
-        <a href="#experience" class="btn primary">SE MINA PROJEKT →</a>
-        <a href="#contact" class="btn">KONTAKTA MIG</a>
+        <a href="#experience" class="btn primary" data-i18n="hero_btn_1">SE MINA PROJEKT →</a>
+        <a href="#contact" class="btn" data-i18n="hero_btn_2">KONTAKTA MIG</a>
       </div>
     </div>
     <div class="chip-wrap reveal d2">
@@ -326,28 +294,47 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
             <circle cx="30" cy="70" r="3.5"/><circle cx="5" cy="150" r="3.5"/><circle cx="40" cy="230" r="3.5"/>
             <circle cx="270" cy="60" r="3.5"/><circle cx="295" cy="150" r="3.5"/><circle cx="260" cy="235" r="3.5"/>
           </g>
-          <text x="150" y="157" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="url(#g)">AI</text>
+          <text x="150" y="157" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" fill="url(#g)" data-i18n="ai_text">AI</text>
         </svg>
       </div>
     </div>
   </div>
-  <div class="scroll-hint">SCROLLA<i></i></div>
+  <div class="scroll-hint"><span data-i18n="scroll">SCROLLA</span><i></i></div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
   <div class="wrap">
-    <div class="sec-head reveal"><div class="idx">// 01</div><h2>Om mig</h2></div>
+    
+    <div class="sec-head reveal">
+      <div class="sec-head-flex">
+        <div>
+          <div class="idx">// 01</div>
+          <h2 data-i18n="nav_about">Om mig</h2>
+        </div>
+        
+        <!-- Audio Uploader & Player -->
+        <div class="audio-controls">
+          <input type="file" id="audio-upload" accept="audio/*" style="display: none;">
+          <audio id="about-audio"></audio>
+          <button id="audio-btn" class="audio-btn">
+            <span id="audio-icon">🎙️</span>
+            <span id="audio-text" data-i18n="audio_upload">Ladda upp röstspår</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="about-grid">
       <div class="about-text reveal">
-        <p>Hej, jag heter <strong>Silas</strong>. Jag arbetar som Detail Design Engineer på Vattenfall i Forsmark, där jag varje dag möter kretsdesign och ventilationssystem i en miljö där precision och säkerhet är allt. Parallellt läser jag masterprogrammet i <strong>Embedded Systems</strong> vid Uppsala universitet.</p>
-        <p>Min styrka är att <strong>läsa och förstå komplexa kretsdiagram</strong>. Jag ser hur signaler, spänningar och reglerloopar hänger ihop i ett helt system och inte bara på komponentnivå. Den förmågan vill jag ta med mig in i nästa generations elektronik, där AI inte bara körs i molnet utan sitter inbyggd i själva hårdvaran.</p>
-        <p>Jag trivs som bäst när jag får bygga något som verkligen fungerar: en robotarm som reglerar sitt eget moment, eller en bensinbil som får ett nytt eldrivet hjärta. Teori är kul, men det är när något rör sig för första gången som det blir riktigt roligt.</p>
-        <p>Utomhus laddar jag batterierna genom <strong>löpning</strong>, <strong>calisthenics</strong> och <strong>beachvolleyboll</strong>. De ger mig uthållighet, disciplin och lagkänsla, och dem tar jag med mig in i varje projekt.</p>
+        <p data-i18n="about_p1">Hej, jag heter <strong>Silas</strong>. Jag arbetar som Detail Design Engineer på Vattenfall i Forsmark, där jag varje dag möter kretsdesign och ventilationssystem i en miljö där precision och säkerhet är allt. Parallellt läser jag masterprogrammet i <strong>Embedded Systems</strong> vid Uppsala universitet.</p>
+        <p data-i18n="about_p2">Min styrka är att <strong>läsa och förstå komplexa kretsdiagram</strong>. Jag ser hur signaler, spänningar och reglerloopar hänger ihop i ett helt system och inte bara på komponentnivå. Den förmågan vill jag ta med mig in i nästa generations elektronik, där AI inte bara körs i molnet utan sitter inbyggd i själva hårdvaran.</p>
+        <p data-i18n="about_p3">Jag trivs som bäst när jag får bygga något som verkligen fungerar: en robotarm som reglerar sitt eget moment, eller en bensinbil som får ett nytt eldrivet hjärta. Teori är kul, men det är när något rör sig för första gången som det blir riktigt roligt.</p>
+        <p data-i18n="about_p4">Utomhus laddar jag batterierna genom <strong>löpning</strong>, <strong>calisthenics</strong> och <strong>beachvolleyboll</strong>. De ger mig uthållighet, disciplin och lagkänsla, och dem tar jag med mig in i varje projekt.</p>
         
         <div class="marathon-wrap">
           <img src="4540.jpg" alt="Silas Ekman springer Uppsala Maraton">
-          <div class="badge">📍 UPPSALA MARATON</div>
+          <div class="badge" data-i18n="marathon_badge">📍 UPPSALA MARATON</div>
         </div>
 
       </div>
@@ -356,11 +343,15 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
           <img src="silas_ekman.jpg" alt="Silas Ekman" class="profile-img">
         </div>
         <div class="card facts reveal d2">
-          <div class="fact"><div class="k">Roll</div><div class="v">Detail Design Engineer @ Vattenfall</div></div>
-          <div class="fact"><div class="k">Utbildning</div><div class="v">Civilingenjör Elektroteknik, MSc Embedded Systems — Uppsala universitet</div></div>
-          <div class="fact"><div class="k">Fokus</div><div class="v">Inbyggda system · Reglerteknik · AI på kanten</div></div>
-          <div class="fact"><div class="k">På fritiden</div>
-            <div class="hobbies"><span class="pill">🏃 Löpning</span><span class="pill">💪 Calisthenics</span><span class="pill">🏐 Beachvolleyboll</span></div>
+          <div class="fact"><div class="k" data-i18n="f_role">Roll</div><div class="v">Detail Design Engineer @ Vattenfall</div></div>
+          <div class="fact"><div class="k" data-i18n="f_edu">Utbildning</div><div class="v" data-i18n="f_edu_v">Civilingenjör Elektroteknik, MSc Embedded Systems — Uppsala universitet</div></div>
+          <div class="fact"><div class="k" data-i18n="f_focus">Fokus</div><div class="v" data-i18n="f_focus_v">Inbyggda system · Reglerteknik · AI på kanten</div></div>
+          <div class="fact"><div class="k" data-i18n="f_hobbies">På fritiden</div>
+            <div class="hobbies">
+              <span class="pill" data-i18n="h_1">🏃 Löpning</span>
+              <span class="pill" data-i18n="h_2">💪 Calisthenics</span>
+              <span class="pill" data-i18n="h_3">🏐 Beachvolleyboll</span>
+            </div>
           </div>
         </div>
       </div>
@@ -371,52 +362,48 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="wrap">
-    <div class="sec-head reveal"><div class="idx">// 02</div><h2>Erfarenhet &amp; projekt</h2></div>
+    <div class="sec-head reveal"><div class="idx">// 02</div><h2 data-i18n="nav_exp">Erfarenhet &amp; projekt</h2></div>
 
     <div class="timeline">
       <div class="t-item card reveal">
-        <div class="t-meta">Nuvarande</div>
+        <div class="t-meta" data-i18n="t_now">Nuvarande</div>
         <h3>Detail Design Engineer</h3>
         <div class="org">Vattenfall · Forsmark</div>
-        <p>Detaljprojektering inom kretsdesign och ventilationssystem i en av Sveriges mest säkerhetskritiska industrimiljöer. Jag omvandlar krav och scheman till underlag som går att bygga, drifta och underhålla.</p>
-        <div class="stack"><span>Kretsdesign</span><span>Ventilation</span><span>Dokumentation</span><span>Säkerhetskultur</span></div>
+        <p data-i18n="e_p1">Detaljprojektering inom kretsdesign och ventilationssystem i en av Sveriges mest säkerhetskritiska industrimiljöer. Jag omvandlar krav och scheman till underlag som går att bygga, drifta och underhålla.</p>
+        <div class="stack"><span data-i18n="s1">Kretsdesign</span><span data-i18n="s2">Ventilation</span><span data-i18n="s3">Dokumentation</span><span data-i18n="s4">Säkerhetskultur</span></div>
       </div>
 
       <div class="t-item card reveal d1">
-        <div class="t-meta">Tidigare</div>
+        <div class="t-meta" data-i18n="t_past">Tidigare</div>
         <h3>Ahlsell</h3>
-        <div class="org">Elteknisk grossist</div>
-        <p>Erfarenhet från Ahlsell som gav mig en bred förståelse för elektronik- och installationskomponenter och för vad kunder faktiskt behöver ute i verkligheten.</p>
-        <div class="stack"><span>Produktkunskap</span><span>Kundkontakt</span><span>Teknisk rådgivning</span></div>
+        <div class="org" data-i18n="e_org2">Elteknisk grossist</div>
+        <p data-i18n="e_p2">Erfarenhet från Ahlsell som gav mig en bred förståelse för elektronik- och installationskomponenter och för vad kunder faktiskt behöver ute i verkligheten.</p>
       </div>
 
       <div class="t-item card reveal d2">
-        <div class="t-meta">Utbildning</div>
-        <h3>Civilingenjör i Elektroteknik · Master i Embedded Systems</h3>
+        <div class="t-meta" data-i18n="t_edu">Utbildning</div>
+        <h3 data-i18n="e_title3">Civilingenjör i Elektroteknik · Master i Embedded Systems</h3>
         <div class="org">Uppsala universitet</div>
-        <p>Fördjupning i inbyggda system, reglerteknik och design av hård- och mjukvara som samarbetar.</p>
+        <p data-i18n="e_p3">Fördjupning i inbyggda system, reglerteknik och design av hård- och mjukvara som samarbetar.</p>
       </div>
     </div>
 
-    <div class="sub-title reveal">Tekniska projekt</div>
+    <div class="sub-title reveal" data-i18n="tech_proj">Tekniska projekt</div>
     <div class="projects">
       <article class="card proj reveal">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2"/><circle cx="12" cy="9" r="2"/><circle cx="19" cy="4" r="2"/><path d="M6.2 17.4 10.8 10.6M13.8 8.2 17.2 5.2"/></svg></div>
-        <h3>Robotarm med momentbaserad PID</h3>
-        <p>Mitt kandidatexamensarbete. Jag utvecklade en robotarm styrd av en momentbaserad PID-regulator, från modell och reglerdesign till fungerande hårdvara.</p>
-        <div class="stack"><span>PID</span><span>Reglerteknik</span><span>Inbyggt</span></div>
+        <h3 data-i18n="p1_t">Robotarm med momentbaserad PID</h3>
+        <p data-i18n="p1_d">Mitt kandidatexamensarbete. Jag utvecklade en robotarm styrd av en momentbaserad PID-regulator, från modell och reglerdesign till fungerande hårdvara.</p>
       </article>
       <article class="card proj reveal d1">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
-        <h3>Bensinbil → elbil</h3>
-        <p>Jag konverterade en bensinbil till en elbil och tog mig an hela kedjan: drivlina, batterisystem, kraftelektronik och integration i ett befintligt fordon.</p>
-        <div class="stack"><span>Kraftelektronik</span><span>Batteri</span><span>Fordon</span></div>
+        <h3 data-i18n="p2_t">Bensinbil → elbil</h3>
+        <p data-i18n="p2_d">Jag konverterade en bensinbil till en elbil och tog mig an hela kedjan: drivlina, batterisystem, kraftelektronik och integration i ett befintligt fordon.</p>
       </article>
       <article class="card proj reveal d2">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 2v20M9 9l3-3 3 3M9 15l3 3 3-3"/></svg></div>
-        <h3>Hiss-system</h3>
-        <p>Ett projekt kring styrning och automation av ett hisssystem, med fokus på PLC-logik, säkerhet och tillförlitlig drift.</p>
-        <div class="stack"><span>PLC</span><span>Automation</span><span>Säkerhet</span></div>
+        <h3 data-i18n="p3_t">Hiss-system</h3>
+        <p data-i18n="p3_d">Ett projekt kring styrning och automation av ett hisssystem, med fokus på PLC-logik, säkerhet och tillförlitlig drift.</p>
       </article>
     </div>
   </div>
@@ -425,10 +412,10 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
 <!-- SKILLS -->
 <section id="skills">
   <div class="wrap">
-    <div class="sec-head reveal"><div class="idx">// 03</div><h2>Färdigheter</h2></div>
+    <div class="sec-head reveal"><div class="idx">// 03</div><h2 data-i18n="nav_skills">Färdigheter</h2></div>
     <div class="skills-grid">
       <div class="card reveal">
-        <h3>Hard skills</h3>
+        <h3 data-i18n="hard_s">Hard skills</h3>
         <div class="bar"><div class="row"><span>Python</span><i>88%</i></div><div class="track"><div class="fill" data-w="88"></div></div></div>
         <div class="bar"><div class="row"><span>C++</span><i>82%</i></div><div class="track"><div class="fill" data-w="82"></div></div></div>
         <div class="bar"><div class="row"><span>ROS1</span><i>75%</i></div><div class="track"><div class="fill" data-w="75"></div></div></div>
@@ -438,13 +425,13 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
         <div class="bar"><div class="row"><span>LabVIEW</span><i>72%</i></div><div class="track"><div class="fill" data-w="72"></div></div></div>
       </div>
       <div class="card reveal d2">
-        <h3>Soft skills</h3>
+        <h3 data-i18n="soft_s">Soft skills</h3>
         <div class="soft">
-          <div class="soft-item"><span class="n">01</span><div><b>Analytiskt tänkande</b><small>Bryter ner komplexa system till begripliga delar.</small></div></div>
-          <div class="soft-item"><span class="n">02</span><div><b>Problemlösning</b><small>Felsöker metodiskt, från kretsschema till kod.</small></div></div>
-          <div class="soft-item"><span class="n">03</span><div><b>Samarbete</b><small>Lagkänsla från idrotten, in i ingenjörsarbetet.</small></div></div>
-          <div class="soft-item"><span class="n">04</span><div><b>Uthållighet</b><small>Löpning och calisthenics lär en att inte ge upp.</small></div></div>
-          <div class="soft-item"><span class="n">05</span><div><b>Nyfikenhet</b><small>Alltid på jakt efter nästa teknik att lära sig.</small></div></div>
+          <div class="soft-item"><span class="n">01</span><div><b data-i18n="ss1_t">Analytiskt tänkande</b><small data-i18n="ss1_d">Bryter ner komplexa system till begripliga delar.</small></div></div>
+          <div class="soft-item"><span class="n">02</span><div><b data-i18n="ss2_t">Problemlösning</b><small data-i18n="ss2_d">Felsöker metodiskt, från kretsschema till kod.</small></div></div>
+          <div class="soft-item"><span class="n">03</span><div><b data-i18n="ss3_t">Samarbete</b><small data-i18n="ss3_d">Lagkänsla från idrotten, in i ingenjörsarbetet.</small></div></div>
+          <div class="soft-item"><span class="n">04</span><div><b data-i18n="ss4_t">Uthållighet</b><small data-i18n="ss4_d">Löpning och calisthenics lär en att inte ge upp.</small></div></div>
+          <div class="soft-item"><span class="n">05</span><div><b data-i18n="ss5_t">Nyfikenhet</b><small data-i18n="ss5_d">Alltid på jakt efter nästa teknik att lära sig.</small></div></div>
         </div>
       </div>
     </div>
@@ -456,9 +443,9 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
   <div class="wrap">
     <div class="reveal">
       <div class="idx" style="font-family:var(--mono);color:var(--cyan);font-size:.85rem;letter-spacing:.15em;margin-bottom:14px">// 04</div>
-      <h2>Låt oss bygga <span class="grad">framtidens elektronik</span>.</h2>
-      <p>Har du ett projekt, en idé eller bara vill snacka hårdvara och AI? Hör av dig.</p>
-      <a class="btn primary" href="mailto:silasekman@gmail.com">SKICKA ETT MEDDELANDE →</a>
+      <h2 data-i18n="c_title">Låt oss bygga <span class="grad">framtidens elektronik</span>.</h2>
+      <p data-i18n="c_desc">Har du ett projekt, en idé eller bara vill snacka hårdvara och AI? Hör av dig.</p>
+      <a class="btn primary" href="mailto:silasekman@gmail.com" data-i18n="c_btn">SKICKA ETT MEDDELANDE →</a>
       <div class="socials">
         <a class="btn" href="https://linkedin.com/in/silasekman" target="_blank" rel="noopener">LINKEDIN</a>
         <a class="btn" href="https://github.com/" target="_blank" rel="noopener">GITHUB</a>
@@ -467,10 +454,191 @@ footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-fa
   </div>
 </section>
 
-<footer>© <span id="yr"></span> Silas Ekman · Byggd med kod och kaffe</footer>
+<footer data-i18n="footer">© <span id="yr"></span> Silas Ekman · Byggd med kod och kaffe</footer>
 
 <script>
-// year
+// --- DICTIONARY FOR TRANSLATIONS ---
+const dict = {
+  sv: {
+    nav_about: "Om mig", nav_exp: "Erfarenhet", nav_skills: "Färdigheter", nav_contact: "Kontakt",
+    hero_tag: "SYSTEM ONLINE — Silas Ekman",
+    hero_h1: 'Där <span class="grad">hårdvara</span> möter <span class="grad">intelligens</span>.',
+    hero_p: "Jag är civilingenjörsstudent i elektroteknik och designar elektronik som tänker. Från kretskort och regulatorer till framtidens AI-integrerade inbyggda system.",
+    hero_btn_1: "SE MINA PROJEKT →", hero_btn_2: "KONTAKTA MIG",
+    ai_text: "AI", scroll: "SCROLLA",
+    audio_upload: "Ladda upp röstspår", audio_play: "Spela upp", audio_pause: "Pausa",
+    about_p1: "Hej, jag heter <strong>Silas</strong>. Jag arbetar som Detail Design Engineer på Vattenfall i Forsmark, där jag varje dag möter kretsdesign och ventilationssystem i en miljö där precision och säkerhet är allt. Parallellt läser jag masterprogrammet i <strong>Embedded Systems</strong> vid Uppsala universitet.",
+    about_p2: "Min styrka är att <strong>läsa och förstå komplexa kretsdiagram</strong>. Jag ser hur signaler, spänningar och reglerloopar hänger ihop i ett helt system och inte bara på komponentnivå. Den förmågan vill jag ta med mig in i nästa generations elektronik, där AI inte bara körs i molnet utan sitter inbyggd i själva hårdvaran.",
+    about_p3: "Jag trivs som bäst när jag får bygga något som verkligen fungerar: en robotarm som reglerar sitt eget moment, eller en bensinbil som får ett nytt eldrivet hjärta. Teori är kul, men det är när något rör sig för första gången som det blir riktigt roligt.",
+    about_p4: "Utomhus laddar jag batterierna genom <strong>löpning</strong>, <strong>calisthenics</strong> och <strong>beachvolleyboll</strong>. De ger mig uthållighet, disciplin och lagkänsla, och dem tar jag med mig in i varje projekt.",
+    marathon_badge: "📍 UPPSALA MARATON",
+    f_role: "Roll", f_edu: "Utbildning", f_edu_v: "Civilingenjör Elektroteknik, MSc Embedded Systems — Uppsala universitet",
+    f_focus: "Fokus", f_focus_v: "Inbyggda system · Reglerteknik · AI på kanten",
+    f_hobbies: "På fritiden", h_1: "🏃 Löpning", h_2: "💪 Calisthenics", h_3: "🏐 Beachvolleyboll",
+    t_now: "Nuvarande", t_past: "Tidigare", t_edu: "Utbildning",
+    e_p1: "Detaljprojektering inom kretsdesign och ventilationssystem i en av Sveriges mest säkerhetskritiska industrimiljöer. Jag omvandlar krav och scheman till underlag som går att bygga, drifta och underhålla.",
+    s1: "Kretsdesign", s2: "Ventilation", s3: "Dokumentation", s4: "Säkerhetskultur",
+    e_org2: "Elteknisk grossist", e_p2: "Erfarenhet från Ahlsell som gav mig en bred förståelse för elektronik- och installationskomponenter och för vad kunder faktiskt behöver ute i verkligheten.",
+    e_title3: "Civilingenjör i Elektroteknik · Master i Embedded Systems", e_p3: "Fördjupning i inbyggda system, reglerteknik och design av hård- och mjukvara som samarbetar.",
+    tech_proj: "Tekniska projekt",
+    p1_t: "Robotarm med momentbaserad PID", p1_d: "Mitt kandidatexamensarbete. Jag utvecklade en robotarm styrd av en momentbaserad PID-regulator, från modell och reglerdesign till fungerande hårdvara.",
+    p2_t: "Bensinbil → elbil", p2_d: "Jag konverterade en bensinbil till en elbil och tog mig an hela kedjan: drivlina, batterisystem, kraftelektronik och integration i ett befintligt fordon.",
+    p3_t: "Hiss-system", p3_d: "Ett projekt kring styrning och automation av ett hisssystem, med fokus på PLC-logik, säkerhet och tillförlitlig drift.",
+    hard_s: "Hard skills", soft_s: "Soft skills",
+    ss1_t: "Analytiskt tänkande", ss1_d: "Bryter ner komplexa system till begripliga delar.",
+    ss2_t: "Problemlösning", ss2_d: "Felsöker metodiskt, från kretsschema till kod.",
+    ss3_t: "Samarbete", ss3_d: "Lagkänsla från idrotten, in i ingenjörsarbetet.",
+    ss4_t: "Uthållighet", ss4_d: "Löpning och calisthenics lär en att inte ge upp.",
+    ss5_t: "Nyfikenhet", ss5_d: "Alltid på jakt efter nästa teknik att lära sig.",
+    c_title: 'Låt oss bygga <span class="grad">framtidens elektronik</span>.',
+    c_desc: "Har du ett projekt, en idé eller bara vill snacka hårdvara och AI? Hör av dig.", c_btn: "SKICKA ETT MEDDELANDE →",
+    footer: "© " + new Date().getFullYear() + " Silas Ekman · Byggd med kod och kaffe"
+  },
+  en: {
+    nav_about: "About me", nav_exp: "Experience", nav_skills: "Skills", nav_contact: "Contact",
+    hero_tag: "SYSTEM ONLINE — Silas Ekman",
+    hero_h1: 'Where <span class="grad">hardware</span> meets <span class="grad">intelligence</span>.',
+    hero_p: "I am an electrical engineering master's student designing electronics that think. From PCBs to the future of AI-integrated embedded systems.",
+    hero_btn_1: "VIEW MY PROJECTS →", hero_btn_2: "CONTACT ME",
+    ai_text: "AI", scroll: "SCROLL",
+    audio_upload: "Upload Voice Track", audio_play: "Play Audio", audio_pause: "Pause Audio",
+    about_p1: "Hi, I'm <strong>Silas</strong>. I work as a Detail Design Engineer at Vattenfall in Forsmark, where precision and safety are everything. In parallel, I am pursuing my master's in <strong>Embedded Systems</strong> at Uppsala University.",
+    about_p2: "My core strength is <strong>understanding complex circuit diagrams</strong>. I see how signals, voltages, and control loops connect in a full system. I want to bring this into the next generation of electronics, where AI runs on the edge hardware.",
+    about_p3: "I thrive when building things that actually work: a robotic arm regulating its own torque, or converting a petrol car to electric. Theory is fun, but making things move is what I love.",
+    about_p4: "Outside the lab, I recharge by <strong>running</strong>, doing <strong>calisthenics</strong>, and playing <strong>beach volleyball</strong>. It gives me endurance and team spirit that I bring to every project.",
+    marathon_badge: "📍 UPPSALA MARATHON",
+    f_role: "Role", f_edu: "Education", f_edu_v: "MSc Electrical Engineering, Embedded Systems — Uppsala University",
+    f_focus: "Focus", f_focus_v: "Embedded Systems · Control Theory · Edge AI",
+    f_hobbies: "Hobbies", h_1: "🏃 Running", h_2: "💪 Calisthenics", h_3: "🏐 Beach Volleyball",
+    t_now: "Present", t_past: "Past", t_edu: "Education",
+    e_p1: "Detail design for circuits and ventilation in one of Sweden's most critical industrial environments.",
+    s1: "Circuit Design", s2: "Ventilation", s3: "Documentation", s4: "Safety Culture",
+    e_org2: "Electrical Wholesaler", e_p2: "Gained a broad understanding of electronic components and real-world customer needs.",
+    e_title3: "MSc Electrical Eng. · Embedded Systems", e_p3: "Specializing in embedded systems, control theory, and hardware-software integration.",
+    tech_proj: "Technical Projects",
+    p1_t: "Robotic Arm with Torque PID", p1_d: "My bachelor thesis. Developed a robotic arm controlled by a torque-based PID regulator, from model to hardware.",
+    p2_t: "Petrol → EV Conversion", p2_d: "Converted a petrol car to an EV, handling the drivetrain, battery system, and integration.",
+    p3_t: "Elevator System", p3_d: "Project covering automation of an elevator system, focusing on PLC logic and safety.",
+    hard_s: "Hard skills", soft_s: "Soft skills",
+    ss1_t: "Analytical Thinking", ss1_d: "Breaking down complex systems into manageable parts.",
+    ss2_t: "Problem Solving", ss2_d: "Methodical troubleshooting, from circuit to code.",
+    ss3_t: "Teamwork", ss3_d: "Bringing team spirit from sports into engineering.",
+    ss4_t: "Endurance", ss4_d: "Running teaches you never to give up.",
+    ss5_t: "Curiosity", ss5_d: "Always hunting for the next technology to learn.",
+    c_title: 'Let\'s build the <span class="grad">electronics of tomorrow</span>.',
+    c_desc: "Got a project, an idea, or just want to talk hardware and AI? Get in touch.", c_btn: "SEND A MESSAGE →",
+    footer: "© " + new Date().getFullYear() + " Silas Ekman · Built with code and coffee"
+  },
+  ar: {
+    nav_about: "نبذة عني", nav_exp: "الخبرات", nav_skills: "المهارات", nav_contact: "تواصل معي",
+    hero_tag: "النظام متصل — سيلاس إكمان",
+    hero_h1: 'حيث تلتقي <span class="grad">الأجهزة</span> مع <span class="grad">الذكاء</span>.',
+    hero_p: "أنا طالب ماجستير في الهندسة الكهربائية، أصمم إلكترونيات تفكر. من اللوحات الإلكترونية إلى الأنظمة المدمجة المدعومة بالذكاء الاصطناعي.",
+    hero_btn_1: "عرض مشاريعي ←", hero_btn_2: "تواصل معي",
+    ai_text: "الذكاء الاصطناعي", scroll: "قم بالتمرير",
+    audio_upload: "رفع مقطع صوتي", audio_play: "تشغيل", audio_pause: "إيقاف مؤقت",
+    about_p1: "مرحباً، أنا <strong>سيلاس</strong>. أعمل كمهندس تصميم تفصيلي في Vattenfall، حيث الدقة والأمان هما كل شيء. بالتوازي، أدرس الماجستير في <strong>الأنظمة المدمجة</strong> بجامعة أوبسالا.",
+    about_p2: "نقطة قوتي هي <strong>فهم المخططات الكهربائية المعقدة</strong>. أرى كيف تترابط الإشارات في نظام كامل. أريد نقل هذا إلى الجيل القادم من الإلكترونيات، حيث يعمل الذكاء الاصطناعي داخل الأجهزة نفسها.",
+    about_p3: "أزدهر عندما أبني أشياء تعمل بالفعل: ذراع آلي ينظم عزم الدوران، أو تحويل سيارة بنزين إلى كهربائية. النظريات ممتعة، ولكن جعل الأشياء تتحرك هو ما أحبه.",
+    about_p4: "خارج المختبر، أجدد طاقتي من خلال <strong>الجري</strong>، و<strong>الجمباز</strong>، و<strong>الكرة الطائرة</strong>. إنها تمنحني القدرة على التحمل وروح الفريق.",
+    marathon_badge: "📍 ماراثون أوبسالا",
+    f_role: "الدور", f_edu: "التعليم", f_edu_v: "ماجستير الهندسة الكهربائية، الأنظمة المدمجة — جامعة أوبسالا",
+    f_focus: "التركيز", f_focus_v: "الأنظمة المدمجة · نظرية التحكم · الذكاء الاصطناعي",
+    f_hobbies: "الهوايات", h_1: "🏃 الجري", h_2: "💪 الجمباز", h_3: "🏐 الكرة الطائرة",
+    t_now: "الحالي", t_past: "السابق", t_edu: "التعليم",
+    e_p1: "تصميم تفصيلي للدوائر والتهوية في واحدة من أكثر البيئات الصناعية أهمية في السويد.",
+    s1: "تصميم الدوائر", s2: "التهوية", s3: "التوثيق", s4: "ثقافة السلامة",
+    e_org2: "موزع كهربائي", e_p2: "اكتسبت فهماً واسعاً للمكونات الإلكترونية واحتياجات العملاء في العالم الحقيقي.",
+    e_title3: "ماجستير هندسة كهربائية · أنظمة مدمجة", e_p3: "تخصص في الأنظمة المدمجة، نظرية التحكم، وتكامل الأجهزة والبرمجيات.",
+    tech_proj: "المشاريع التقنية",
+    p1_t: "ذراع آلي مع تحكم PID", p1_d: "مشروع التخرج. طورت ذراعاً آلياً يتحكم فيه منظم PID، من النموذج إلى الأجهزة.",
+    p2_t: "تحويل سيارة بنزين لـ كهربائية", p2_d: "حولت سيارة بنزين إلى سيارة كهربائية، وتوليت نظام الدفع والبطارية.",
+    p3_t: "نظام المصعد", p3_d: "مشروع يغطي أتمتة نظام مصعد، مع التركيز على منطق PLC والسلامة.",
+    hard_s: "المهارات التقنية", soft_s: "المهارات الشخصية",
+    ss1_t: "التفكير التحليلي", ss1_d: "تقسيم الأنظمة المعقدة إلى أجزاء يمكن التحكم فيها.",
+    ss2_t: "حل المشكلات", ss2_d: "اكتشاف الأخطاء بشكل منهجي، من الدائرة إلى الكود.",
+    ss3_t: "العمل الجماعي", ss3_d: "نقل روح الفريق من الرياضة إلى الهندسة.",
+    ss4_t: "القدرة على التحمل", ss4_d: "الجري يعلمك ألا تستسلم أبداً.",
+    ss5_t: "الفضول", ss5_d: "دائماً أبحث عن التكنولوجيا التالية لتعلمها.",
+    c_title: 'دعنا نبني <span class="grad">إلكترونيات المستقبل</span>.',
+    c_desc: "هل لديك مشروع، فكرة، أو تريد التحدث عن الأجهزة؟ تواصل معي.", c_btn: "إرسال رسالة ←",
+    footer: "© " + new Date().getFullYear() + " سيلاس إكمان"
+  }
+};
+
+let currentLang = 'sv';
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    // UI update
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    
+    // Change language logic
+    currentLang = e.target.getAttribute('data-lang');
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    
+    // Update texts
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[currentLang][key]) {
+        el.innerHTML = dict[currentLang][key];
+      }
+    });
+
+    // Update audio button text if needed
+    updateAudioBtnText();
+  });
+});
+
+// --- AUDIO PLAYER LOGIC ---
+const audioUpload = document.getElementById('audio-upload');
+const audioEl = document.getElementById('about-audio');
+const audioBtn = document.getElementById('audio-btn');
+const audioIcon = document.getElementById('audio-icon');
+const audioText = document.getElementById('audio-text');
+let hasAudio = false;
+
+function updateAudioBtnText() {
+  if (!hasAudio) {
+    audioText.innerHTML = dict[currentLang]['audio_upload'];
+  } else {
+    audioText.innerHTML = audioEl.paused ? dict[currentLang]['audio_play'] : dict[currentLang]['audio_pause'];
+  }
+}
+
+audioBtn.addEventListener('click', () => {
+  if (!hasAudio) {
+    audioUpload.click(); // Open file dialog
+  } else {
+    if (audioEl.paused) {
+      audioEl.play();
+      audioIcon.innerHTML = '⏸️';
+    } else {
+      audioEl.pause();
+      audioIcon.innerHTML = '▶️';
+    }
+    updateAudioBtnText();
+  }
+});
+
+audioUpload.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    audioEl.src = URL.createObjectURL(file);
+    hasAudio = true;
+    audioIcon.innerHTML = '▶️';
+    updateAudioBtnText();
+  }
+});
+
+audioEl.addEventListener('ended', () => {
+  audioIcon.innerHTML = '▶️';
+  updateAudioBtnText();
+});
+
+// --- EXISTING SCRIPTS ---
 document.getElementById('yr').textContent = new Date().getFullYear();
 
 // mobile menu
